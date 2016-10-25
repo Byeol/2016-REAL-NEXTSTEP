@@ -1,3 +1,4 @@
+import { PDFJS } from 'pdfjs-dist';
 
 export default class PDFLoader {
 fileName = "";
@@ -42,7 +43,7 @@ loadPage = (pageNumber, pageElem) => {
 }
 init = () => {
 	const self = this;
-	return window.PDFJS.getDocument(this.fileName).then(pdf => {
+	return PDFJS.getDocument(this.fileName).then(pdf => {
 	    self.pdfFile = pdf;
 	    
 	    return pdf;
@@ -83,7 +84,7 @@ class PDFPage {
 	renderTextLayer = (textLayerElem, viewport, textContent) => {
       let textDivs = [];
       let textLayerFrag = document.createDocumentFragment();
-      let textLayerRenderTask = window.PDFJS.renderTextLayer({
+      let textLayerRenderTask = PDFJS.renderTextLayer({
         textContent: textContent,
         container: textLayerFrag,
         viewport: viewport,

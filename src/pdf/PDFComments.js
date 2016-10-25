@@ -4,9 +4,10 @@ import * as NEXTActions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import {JSLoad, CSSLoad} from '../js/Loader.js'
 import PDFComment from './PDFComment.js'
 
+import SimpleMDE from 'simplemde';
+import 'simplemde/dist/simplemde.min.css';
 
 class component extends Component {
 
@@ -17,8 +18,6 @@ state = {
 mde = "";
 textarea  = (<textarea className="form-control comment-input" ref="name"></textarea>)
 componentWillMount() {
-	CSSLoad("/css/simplemde.min.css").then((js) => {
-	});
 	NEXTActions.fetchAbout(this.props.actions, {
 		is_load: true,
 		type: "get",
@@ -27,17 +26,15 @@ componentWillMount() {
 
 }
 componentDidMount() {
-	JSLoad("/js/simplemde.min.js").then((js) => {
-		this.mde = new window.SimpleMDE({
-				element: this.refs.name,
-				status:false,
-	    		showIcons: ["code"],
-	    		placeholder: "Type here...",
-	    		hideIcons: ["guide", "italic", "fullscreen", "side-by-side","ordered-list", "preview"],		
-	    		toolbar: false
-			});
-		this.setState({load_mark:true});
-	});
+  this.mde = new SimpleMDE({
+      element: this.refs.name,
+      status:false,
+        showIcons: ["code"],
+        placeholder: "Type here...",
+        hideIcons: ["guide", "italic", "fullscreen", "side-by-side","ordered-list", "preview"],		
+        toolbar: false
+    });
+  this.setState({load_mark:true});
 }
 submitComment = (e) => {
 	const value = this.mde.value();
