@@ -1,35 +1,24 @@
 package org.nhnnext.domain;
 
 import lombok.Data;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.List;
 
 @Data
 @Entity
 public class Lecture extends AbstractPersistable<Long> {
 
 	@NotNull
-	private String name;
+	private String title;
 
-	private LectureState state;
-
-	@ManyToMany
-	private Collection<User> instructors;
-
-	@ManyToMany
-	private Collection<User> participants;
+	@ManyToOne(optional = false)
+	private Course course;
 
 	@OneToMany(mappedBy = "lecture")
-	@OrderColumn
-	private List<Course> courses;
-
-	void swapCourses(int i, int j) {
-		Collections.swap(courses, i, j);
-	}
+//	@OrderColumn(name = "course_order")
+	private List<Issue> issues;
 }

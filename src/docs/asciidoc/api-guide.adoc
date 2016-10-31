@@ -1,0 +1,506 @@
+= RESTful NeXTSTEP API Guide
+Jaewon Seo;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+RESTful NeXTSTEP tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+RESTful NeXTSTEP tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+
+
+[[resources]]
+= Resources
+
+
+
+[[resources-index]]
+== Index
+
+The index provides the entry point into the service.
+
+
+
+[[resources-index-access]]
+=== Accessing the index
+
+A `GET` request is used to access the index
+
+==== Response structure
+
+include::{snippets}/index-example/response-fields.adoc[]
+
+==== Example response
+
+include::{snippets}/index-example/http-response.adoc[]
+
+
+
+[[resources-index-links]]
+==== Links
+
+include::{snippets}/index-example/links.adoc[]
+
+
+
+[[resources-courses]]
+== Courses
+
+The Courses resources is used to create and list courses
+
+
+
+[[resources-courses-list]]
+=== Listing courses
+
+A `GET` request will list all of the service's courses.
+
+==== Response structure
+
+include::{snippets}/courses-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/courses-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/courses-list-example/http-response.adoc[]
+
+[[resources-courses-list-links]]
+==== Links
+
+include::{snippets}/courses-list-example/links.adoc[]
+
+
+[[resources-courses-create]]
+=== Creating a course
+
+A `POST` request is used to create a course
+
+==== Request structure
+
+include::{snippets}/courses-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/courses-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/courses-create-example/http-response.adoc[]
+
+
+
+[[resources-lectures]]
+== Lectures
+
+The Lectures resources is used to create lectures.
+
+
+
+[[resources-lectures-create]]
+=== Creating a lecture
+
+A `POST` request is used to create a lecture
+
+==== Request structure
+
+include::{snippets}/lectures-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/lectures-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/lectures-create-example/http-response.adoc[]
+
+
+
+[[resources-issues]]
+== Issues
+
+The Issues resources is used to create and list issues
+
+
+
+[[resources-issues-list]]
+=== Listing issues
+
+A `GET` request will list all of the service's issues.
+
+==== Response structure
+
+include::{snippets}/issues-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/issues-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/issues-list-example/http-response.adoc[]
+
+[[resources-issues-list-links]]
+==== Links
+
+include::{snippets}/issues-list-example/links.adoc[]
+
+
+[[resources-issues-create]]
+=== Creating a issue
+
+A `POST` request is used to create a issue
+
+==== Request structure
+
+include::{snippets}/issues-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/issues-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/issues-create-example/http-response.adoc[]
+
+
+
+[[resources-discussions]]
+== Discussions
+
+The Discussions resources is used to create and list discussions
+
+
+
+[[resources-discussions-list]]
+=== Listing discussions
+
+A `GET` request will list all of the service's discussions.
+
+==== Response structure
+
+include::{snippets}/discussions-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/discussions-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/discussions-list-example/http-response.adoc[]
+
+[[resources-discussions-list-links]]
+==== Links
+
+include::{snippets}/discussions-list-example/links.adoc[]
+
+
+[[resources-discussions-create]]
+=== Creating a discussion
+
+A `POST` request is used to create a discussion
+
+==== Request structure
+
+include::{snippets}/discussions-create-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/discussions-create-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/discussions-create-example/http-response.adoc[]
+
+
+
+[[resources-course]]
+== Course
+
+The Course resource is used to retrieve, update, and delete individual courses
+
+
+
+[[resources-course-links]]
+=== Links
+
+include::{snippets}/course-get-example/links.adoc[]
+
+
+
+[[resources-course-retrieve]]
+=== Retrieve a course
+
+A `GET` request will retrieve the details of a course
+
+==== Response structure
+
+include::{snippets}/course-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/course-get-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/course-get-example/http-response.adoc[]
+
+
+
+[[resources-course-update]]
+=== Update a course
+
+A `PATCH` request is used to update a course
+
+==== Request structure
+
+include::{snippets}/course-update-example/request-fields.adoc[]
+
+To leave an attribute of a course unchanged, any of the above may be omitted from the request.
+
+==== Example request
+
+include::{snippets}/course-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/course-update-example/http-response.adoc[]
+
+
+
+[[resources-course-lectures-list]]
+=== Listing lectures of the course
+
+A `GET` request will list all of the course's lectures.
+
+==== Response structure
+
+include::{snippets}/course-lectures-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/course-lectures-list-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/course-lectures-list-example/http-response.adoc[]
+
+[[resources-course-lectures-list-links]]
+==== Links
+
+include::{snippets}/course-lectures-list-example/links.adoc[]
+
+
+
+[[resources-lecture]]
+== Lecture
+
+The Lecture resource is used to retrieve, update, and delete individual lectures
+
+
+
+[[resources-lecture-links]]
+=== Links
+
+include::{snippets}/lecture-get-example/links.adoc[]
+
+
+
+[[resources-lecture-retrieve]]
+=== Retrieve a lecture
+
+A `GET` request will retrieve the details of a lecture
+
+==== Response structure
+
+include::{snippets}/lecture-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/lecture-get-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/lecture-get-example/http-response.adoc[]
+
+
+
+[[resources-lecture-update]]
+=== Update a lecture
+
+A `PATCH` request is used to update a lecture
+
+==== Request structure
+
+include::{snippets}/lecture-update-example/request-fields.adoc[]
+
+To leave an attribute of a lecture unchanged, any of the above may be omitted from the request.
+
+==== Example request
+
+include::{snippets}/lecture-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/lecture-update-example/http-response.adoc[]
+
+
+
+[[resources-issue]]
+== Issue
+
+The Issue resource is used to retrieve, update, and delete individual issues
+
+
+
+[[resources-issue-links]]
+=== Links
+
+include::{snippets}/issue-get-example/links.adoc[]
+
+
+
+[[resources-issue-retrieve]]
+=== Retrieve a issue
+
+A `GET` request will retrieve the details of a issue
+
+==== Response structure
+
+include::{snippets}/issue-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/issue-get-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/issue-get-example/http-response.adoc[]
+
+
+
+[[resources-issue-update]]
+=== Update a issue
+
+A `PATCH` request is used to update a issue
+
+==== Request structure
+
+include::{snippets}/issue-update-example/request-fields.adoc[]
+
+To leave an attribute of a issue unchanged, any of the above may be omitted from the request.
+
+==== Example request
+
+include::{snippets}/issue-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/issue-update-example/http-response.adoc[]
+
+
+
+[[resources-discussion]]
+== Discussion
+
+The Discussion resource is used to retrieve, update, and delete individual discussions
+
+
+
+[[resources-discussion-links]]
+=== Links
+
+include::{snippets}/discussion-get-example/links.adoc[]
+
+
+
+[[resources-discussion-retrieve]]
+=== Retrieve a discussion
+
+A `GET` request will retrieve the details of a discussion
+
+==== Response structure
+
+include::{snippets}/discussion-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/discussion-get-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/discussion-get-example/http-response.adoc[]
+
+
+
+[[resources-discussion-update]]
+=== Update a discussion
+
+A `PATCH` request is used to update a discussion
+
+==== Request structure
+
+include::{snippets}/discussion-update-example/request-fields.adoc[]
+
+To leave an attribute of a discussion unchanged, any of the above may be omitted from the request.
+
+==== Example request
+
+include::{snippets}/discussion-update-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/discussion-update-example/http-response.adoc[]

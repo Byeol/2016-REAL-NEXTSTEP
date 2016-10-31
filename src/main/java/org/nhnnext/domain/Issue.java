@@ -1,6 +1,7 @@
 package org.nhnnext.domain;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
@@ -14,13 +15,19 @@ import java.util.List;
 @Entity
 public class Issue extends AbstractPersistable<Long> {
 
-	@NotNull
+	@NotEmpty
 	private String title;
 
-	@ManyToOne
-	private Course course;
+	@NotEmpty
+	private String content;
 
-	@OneToMany(mappedBy = "issue")
-	@OrderColumn
-	private List<IssueComment> comments;
+	@ManyToOne(optional = false)
+	private Lecture lecture; // should be final
+
+	private Access access;
+
+	public enum Access {
+		PUBLIC,
+		PRIVATE
+	}
 }

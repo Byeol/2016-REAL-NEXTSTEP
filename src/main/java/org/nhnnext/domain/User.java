@@ -12,4 +12,6 @@ public class User extends AbstractPersistable<Long> {
 
 	@NotNull
 	private String name;
+
+	private String avatarUrl;
 }
