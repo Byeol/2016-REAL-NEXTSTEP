@@ -1,4 +1,4 @@
-package org.nhnnext.domain.repository;
+package org.nhnnext.repository;
 
 import org.nhnnext.domain.DiscussionReply;
 import org.springframework.data.repository.CrudRepository;

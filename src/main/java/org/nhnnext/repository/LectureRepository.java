@@ -1,4 +1,4 @@
-package org.nhnnext.domain.repository;
+package org.nhnnext.repository;
 
 import org.nhnnext.domain.Lecture;
 import org.nhnnext.domain.LectureExcerpt;

@@ -1,6 +1,7 @@
 package org.nhnnext.domain;
 
 import lombok.Data;
+import org.nhnnext.domain.auditing.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

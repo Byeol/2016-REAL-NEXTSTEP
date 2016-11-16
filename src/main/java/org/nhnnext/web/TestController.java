@@ -1,32 +1,43 @@
-//package org.nhnnext.web;
-//
-//import lombok.RequiredArgsConstructor;
-//import org.nhnnext.domain.Course;
-//import org.nhnnext.domain.Issue;
-//import org.nhnnext.domain.Lecture;
-//import org.nhnnext.domain.User;
-//import org.nhnnext.domain.repository.CourseRepository;
-//import org.nhnnext.domain.repository.IssueRepository;
-//import org.nhnnext.domain.repository.LectureRepository;
-//import org.nhnnext.domain.repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import java.util.ArrayList;
-//import java.util.HashSet;
-//
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-//@RestController
-//public class TestController {
-//
-//	private final UserRepository userRepository;
-//	private final LectureRepository lectureRepository;
-//	private final CourseRepository courseRepository;
-//	private final IssueRepository issueRepository;
-//
-//	@GetMapping("/test")
-//	public String createTestData() {
+package org.nhnnext.web;
+
+import lombok.RequiredArgsConstructor;
+import org.nhnnext.domain.*;
+import org.nhnnext.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RestController
+public class TestController {
+
+	private final UserRepository userRepository;
+	private final LectureRepository lectureRepository;
+	private final CourseRepository courseRepository;
+	private final IssueRepository issueRepository;
+
+	private final SecurityUserRepository securityUserRepository;
+
+//	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user")
+	public Object getAuthenticatedUser(@AuthenticationPrincipal Object principal) {
+		return principal;
+	}
+
+	@GetMapping("/test")
+	public String createTestData() {
+		SecurityUser user = new SecurityUser("testuser", "password");
+		securityUserRepository.save(user);
+
+		SecurityUser user2 = new SecurityUser("teacher", "password", "ROLE_INSTRUCTOR");
+		securityUserRepository.save(user2);
+
+		SecurityUser user3 = new SecurityUser("teacher2", "testpass", "ROLE_INSTRUCTOR");
+		securityUserRepository.save(user3);
+
+		return "ok!";
+
 //		User student = new User();
 //		student.setName("학생 1");
 //		userRepository.save(student);
@@ -92,5 +103,5 @@
 //		lectureRepository.save(lecture);
 //
 //		return "ok!";
-//	}
-//}
+	}
+}

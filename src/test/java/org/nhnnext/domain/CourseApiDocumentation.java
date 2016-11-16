@@ -2,7 +2,7 @@ package org.nhnnext.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.nhnnext.domain.repository.CourseRepository;
+import org.nhnnext.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.restdocs.payload.JsonFieldType;
 

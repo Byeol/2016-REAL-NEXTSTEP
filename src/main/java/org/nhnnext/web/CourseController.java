@@ -3,8 +3,8 @@
 //import lombok.RequiredArgsConstructor;
 //import org.nhnnext.domain.Course;
 //import org.nhnnext.domain.Lecture;
-//import org.nhnnext.domain.repository.CourseRepository;
-//import org.nhnnext.domain.repository.LectureRepository;
+//import org.nhnnext.repository.CourseRepository;
+//import org.nhnnext.repository.LectureRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.rest.webmvc.RepositoryRestController;
 //import org.springframework.http.HttpStatus;

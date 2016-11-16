@@ -1,6 +1,5 @@
-package org.nhnnext.domain.repository;
+package org.nhnnext.repository;
 
-import org.nhnnext.domain.CourseExcerpt;
 import org.nhnnext.domain.Issue;
 import org.nhnnext.domain.IssueExcerpt;
 import org.springframework.data.repository.CrudRepository;
