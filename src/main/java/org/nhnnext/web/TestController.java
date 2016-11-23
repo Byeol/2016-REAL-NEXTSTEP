@@ -8,14 +8,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @RestController
 public class TestController {
 
 	private final UserRepository userRepository;
 	private final LectureRepository lectureRepository;
 	private final CourseRepository courseRepository;
-	private final IssueRepository issueRepository;
+	private final LessonRepository lessonRepository;
 
 	private final SecurityUserRepository securityUserRepository;
 

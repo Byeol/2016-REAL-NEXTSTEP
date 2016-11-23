@@ -17,7 +17,7 @@ public class Discussion extends AbstractPersistable<Long> {
 	private String comment;
 
 	@ManyToOne
-	private Issue issue;
+	private Lesson lesson;
 
 	@OneToMany(mappedBy = "parent")
 	private List<DiscussionReply> replies;

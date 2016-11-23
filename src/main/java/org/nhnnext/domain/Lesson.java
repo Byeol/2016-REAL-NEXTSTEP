@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Issue extends AbstractPersistable<Long> {
+public class Lesson extends AbstractPersistable<Long> {
 
 	@NotEmpty
 	private String title;

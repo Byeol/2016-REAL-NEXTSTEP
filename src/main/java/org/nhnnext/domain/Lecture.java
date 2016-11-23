@@ -21,5 +21,5 @@ public class Lecture extends AbstractPersistable<Long> {
 
 	@OneToMany(mappedBy = "lecture")
 //	@OrderColumn(name = "course_order")
-	private List<Issue> issues;
+	private List<Lesson> lessons;
 }

@@ -1,22 +1,10 @@
-buildscript {
-	ext {
-		springBootVersion = '1.4.1.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
-}
-
 plugins {
+	id "org.springframework.boot" version "1.4.2.RELEASE"
 	id "org.asciidoctor.convert" version "1.5.3"
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'nextstep'
@@ -29,27 +17,25 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	snippetsDir = file('build/generated-snippets')
-}
-
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'org.springframework.boot:spring-boot-starter-data-rest'
-	compile 'org.springframework.boot:spring-boot-devtools'
-	compile 'org.projectlombok:lombok'
+	compile 'org.springframework.data:spring-data-rest-hal-browser'
 	compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.security:spring-security-acl'
-
+	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.4'
 	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.4'
 	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.8.4'
-
+	runtime 'org.springframework.boot:spring-boot-devtools'
 	runtime 'com.h2database:h2'
-
+	compileOnly 'org.projectlombok:lombok'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+ext {
+	snippetsDir = file('build/generated-snippets')
 }
 
 test {
