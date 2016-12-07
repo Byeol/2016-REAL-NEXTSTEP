@@ -7,3 +7,9 @@ spring:
     active: production
   session:
     store-type: redis
+
+#spring:
+#  redis:
+#    host: localhost
+#    password: secret
+#    port: 6379

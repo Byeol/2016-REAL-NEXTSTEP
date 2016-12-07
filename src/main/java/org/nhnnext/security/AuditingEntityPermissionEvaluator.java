@@ -42,20 +42,20 @@ public class AuditingEntityPermissionEvaluator implements PermissionEvaluator {
 		List<Sid> sids = auditingEntity.getSids(authentication);
 		List<Permission> requiredPermission = resolvePermission(permission);
 
-		log.info("Checking permission '" + permission + "' for object '" + auditingEntity + "'");
-		log.info(sids.toString());
+		logger.info("Checking permission '" + permission + "' for object '" + auditingEntity + "'");
+		logger.info(sids.toString());
 
 		try {
 			Acl acl = auditingEntity.getAcl();
 
 			if (acl.isGranted(requiredPermission, sids, false)) {
-				log.info("Access is granted");
+				logger.info("Access is granted");
 				return true;
 			}
 
-			log.info("Returning false - ACLs returned, but insufficient permissions for this principal");
+			logger.info("Returning false - ACLs returned, but insufficient permissions for this principal");
 		} catch (NotFoundException nfe) {
-			log.info("Returning false - no ACLs apply for this principal");
+			logger.info("Returning false - no ACLs apply for this principal");
 		}
 
 		return false;
