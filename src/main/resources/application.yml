@@ -1,0 +1,11 @@
+spring:
+  data:
+    rest:
+      base-path: /api
+  profiles:
+    active: production
+
+security:
+  oauth2:
+    sso:
+      login-path: /api/login
