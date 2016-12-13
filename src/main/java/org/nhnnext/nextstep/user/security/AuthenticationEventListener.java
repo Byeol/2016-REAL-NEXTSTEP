@@ -35,7 +35,10 @@ public class AuthenticationEventListener {
         Map<String, Object> map = (Map<String, Object>) authentication.getUserAuthentication().getDetails();
 
         OAuth2User user = getUser(map);
-        logger.info("Authenticated user: " + user);
+
+        if (logger.isInfoEnabled()) {
+            logger.info("Authenticated user: " + user);
+        }
     }
 
     private OAuth2User getUser(Map<String, Object> map) {

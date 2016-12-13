@@ -1,12 +1,9 @@
 package org.nhnnext.nextstep.enrollment;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.nhnnext.nextstep.core.AbstractEntity;
+import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.nhnnext.nextstep.session.CourseSession;
-import org.nhnnext.nextstep.session.Session;
 import org.nhnnext.nextstep.user.User;
 
 import javax.persistence.*;

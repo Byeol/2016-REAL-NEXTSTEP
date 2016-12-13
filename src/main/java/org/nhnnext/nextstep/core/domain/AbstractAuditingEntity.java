@@ -1,4 +1,4 @@
-package org.nhnnext.nextstep.core;
+package org.nhnnext.nextstep.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

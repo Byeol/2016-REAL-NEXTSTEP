@@ -1,4 +1,4 @@
-package org.nhnnext.nextstep.core;
+package org.nhnnext.nextstep.core.domain;
 
 import org.springframework.data.domain.Persistable;
 

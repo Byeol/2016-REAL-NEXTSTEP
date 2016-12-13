@@ -1,7 +1,7 @@
 package org.nhnnext.nextstep.session;
 
 import lombok.Data;
-import org.nhnnext.nextstep.core.AbstractEntity;
+import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.nhnnext.nextstep.course.Course;
 
 import javax.persistence.*;

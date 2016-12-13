@@ -14,12 +14,12 @@ public class CourseEventHandler {
 
     private final UserService userService;
 
-    @HandleBeforeCreate
-    public void handleCourseCreate(Course course) {
-        userService.getAuthenticatedUser()
-                .map(user -> (Instructor) user)
-                .ifPresent(course.getInstructors()::add);
-    }
+//    @HandleBeforeCreate
+//    public void handleCourseCreate(Course course) {
+//        userService.getAuthenticatedUser()
+//                .map(user -> (Instructor) user)
+//                .ifPresent(course.getInstructors()::add);
+//    }
 
 //    @HandleBeforeCreate
 //    public void handleCourseCreate(Course course) {
