@@ -1,5 +1,7 @@
 package org.nhnnext.nextstep.config;
 
+import org.nhnnext.nextstep.core.security.RoleHierarchyUtils;
+import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -11,9 +13,7 @@ public class WebConfig {
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 		final RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-		roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_INSTRUCTOR");
-		roleHierarchy.setHierarchy("ROLE_INSTRUCTOR > ROLE_USER");
-		roleHierarchy.setHierarchy("ROLE_USER > ROLE_GUEST");
+		roleHierarchy.setHierarchy(RoleHierarchyUtils.getRoleHierarchyStringRepresentation(GrantedAuthorities.ROLE_ADMIN, GrantedAuthorities.ROLE_INSTRUCTOR, GrantedAuthorities.ROLE_USER, GrantedAuthorities.ROLE_ANONYMOUS));
 		return roleHierarchy;
 	}
 

@@ -3,10 +3,10 @@ package org.nhnnext.nextstep.config;
 import org.nhnnext.nextstep.core.security.AuditingEntityPermissionEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.acls.domain.SidRetrievalStrategyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
@@ -20,7 +20,8 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 	@Override
 	protected MethodSecurityExpressionHandler createExpressionHandler() {
 		final DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
-		PermissionEvaluator permissionEvaluator = new AuditingEntityPermissionEvaluator();
+		AuditingEntityPermissionEvaluator permissionEvaluator = new AuditingEntityPermissionEvaluator();
+		permissionEvaluator.setSidRetrievalStrategy(new SidRetrievalStrategyImpl(this.roleHierarchy));
 		handler.setPermissionEvaluator(permissionEvaluator);
 		handler.setRoleHierarchy(this.roleHierarchy);
 

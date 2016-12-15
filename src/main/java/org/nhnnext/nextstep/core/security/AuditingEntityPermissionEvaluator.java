@@ -4,7 +4,9 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.nhnnext.nextstep.core.domain.AuditingEntity;
 import org.springframework.security.access.PermissionEvaluator;
-import org.springframework.security.acls.domain.*;
+import org.springframework.security.acls.domain.DefaultPermissionFactory;
+import org.springframework.security.acls.domain.ObjectIdentityRetrievalStrategyImpl;
+import org.springframework.security.acls.domain.PermissionFactory;
 import org.springframework.security.acls.model.*;
 import org.springframework.security.core.Authentication;
 
@@ -18,7 +20,7 @@ public class AuditingEntityPermissionEvaluator implements PermissionEvaluator {
 
 	@Setter	private ObjectIdentityRetrievalStrategy objectIdentityRetrievalStrategy = new ObjectIdentityRetrievalStrategyImpl();
 	@Setter	private ObjectIdentityGenerator objectIdentityGenerator = new ObjectIdentityRetrievalStrategyImpl();
-	@Setter	private SidRetrievalStrategy sidRetrievalStrategy = new SidRetrievalStrategyImpl();
+	@Setter	private SidRetrievalStrategy sidRetrievalStrategy; // = new SidRetrievalStrategyImpl();
 	@Setter	private PermissionFactory permissionFactory = new DefaultPermissionFactory();
 
 	public boolean hasPermission(Authentication authentication, Object domainObject, Object permission) {

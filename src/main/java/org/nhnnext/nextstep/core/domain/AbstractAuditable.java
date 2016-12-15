@@ -2,7 +2,6 @@ package org.nhnnext.nextstep.core.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.nhnnext.nextstep.core.domain.acls.SidRetrievalStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;

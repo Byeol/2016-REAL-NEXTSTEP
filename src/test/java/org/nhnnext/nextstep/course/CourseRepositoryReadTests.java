@@ -2,9 +2,10 @@ package org.nhnnext.nextstep.course;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.security.access.AccessDeniedException;
 
-public class CourseRepositoryDeleteTests extends AbstractCourseRepositoryTest {
+import static org.junit.Assert.assertEquals;
+
+public class CourseRepositoryReadTests extends AbstractCourseRepositoryTest {
 
     @Before
     public void init() {
@@ -14,29 +15,28 @@ public class CourseRepositoryDeleteTests extends AbstractCourseRepositoryTest {
     @Test
     public void withAnonymousUser() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
-        thrown.expect(AccessDeniedException.class);
-        withAnonymousUser(() -> delete(entity));
+        Course result = (Course) withAnonymousUser(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockUser() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
-        thrown.expect(AccessDeniedException.class);
-        withMockUser(() -> delete(entity));
+        Course result = (Course) withMockUser(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockInstructor() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
-        withMockInstructor(() -> delete(entity));
-        thrown.expect(AccessDeniedException.class);
-        withMockInstructor(() -> findOne(entity.getId()));
+        Course result = (Course) withMockInstructor(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockAlternativeInstructor() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
-        thrown.expect(AccessDeniedException.class);
-        withMockAlternativeInstructor(() -> delete(entity));
+        Course result = (Course) withMockAlternativeInstructor(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 }

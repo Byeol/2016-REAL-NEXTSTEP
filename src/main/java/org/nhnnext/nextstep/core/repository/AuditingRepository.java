@@ -6,10 +6,13 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
 @NoRepositoryBean
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public interface AuditingRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
 
     @PreAuthorize("hasPermission(#entity, 'write')")

@@ -5,7 +5,6 @@ import lombok.extern.apachecommons.CommonsLog;
 import org.nhnnext.nextstep.user.OAuth2User;
 import org.nhnnext.nextstep.user.User;
 import org.nhnnext.nextstep.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedPrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.event.EventListener;

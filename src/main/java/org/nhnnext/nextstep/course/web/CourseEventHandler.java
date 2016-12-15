@@ -1,12 +1,8 @@
 package org.nhnnext.nextstep.course.web;
 
 import lombok.RequiredArgsConstructor;
-import org.nhnnext.nextstep.course.Course;
-import org.nhnnext.nextstep.user.Instructor;
 import org.nhnnext.nextstep.user.UserService;
-import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @RequiredArgsConstructor
 @RepositoryEventHandler

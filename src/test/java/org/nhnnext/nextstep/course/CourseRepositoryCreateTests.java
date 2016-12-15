@@ -1,74 +1,38 @@
 package org.nhnnext.nextstep.course;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.nhnnext.nextstep.AbstractIntegrationTest;
-import org.nhnnext.nextstep.user.Instructor;
-import org.nhnnext.nextstep.user.User;
-import org.nhnnext.nextstep.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 
-import javax.transaction.Transactional;
+import static org.junit.Assert.assertEquals;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
-
-public class CourseRepositoryCreateTests extends AbstractIntegrationTest {
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    CourseRepository repository;
+public class CourseRepositoryCreateTests extends AbstractCourseRepositoryTest {
 
     @Before
     public void init() {
-        repository.deleteAll();
-        userRepository.deleteAll();
-
-        User user = new User("testuser");
-        user.setName("Test user");
-        userRepository.save(user);
-
-        Instructor instructor = new Instructor("instructor");
-        instructor.setName("Test instructor");
-        userRepository.save(instructor);
-    }
-
-    @Test(expected = AccessDeniedException.class)
-    @WithAnonymousUser
-    public void withAnonymousUser() {
-        repository.save(createCourse());
-    }
-
-    @Test(expected = AccessDeniedException.class)
-    @WithMockUser(username = "testuser")
-    public void withMockUser() {
-        repository.save(createCourse());
+        super.init();
     }
 
     @Test
-    @WithMockUser(username = "instructor", roles = "INSTRUCTOR")
-    public void withMockInstructor() {
-        Course course = test(); //repository.save(createCourse());
-        System.out.println(course.getId());
-        System.out.println(course.getCreatedBy());
-        course = repository.findOne(course.getId());
-        assertThat(course.getInstructors(), hasSize(1));
+    public void withAnonymousUser() throws Exception {
+        Course course = createCourse();
+        thrown.expect(AccessDeniedException.class);
+        withAnonymousUser(() -> save(course));
     }
 
-    @Transactional
-    public Course test() {
-        return repository.save(createCourse());
+    @Test
+    public void withMockUser() throws Exception {
+        Course course = createCourse();
+        thrown.expect(AccessDeniedException.class);
+        withMockUser(() -> save(course));
     }
 
-    public static Course createCourse() {
-        Course course = new Course();
-        course.setName("name");
-        course.setDescription("description");
-        return course;
+    @Test
+    public void withMockInstructor() throws Exception {
+        Course course = createCourse();
+        Course expected = (Course) withMockInstructor(() -> save(course));
+        Course result = (Course) withMockInstructor(() -> findOne(expected.getId()));
+        assertEquals(expected, result);
     }
 }

@@ -6,7 +6,10 @@ import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

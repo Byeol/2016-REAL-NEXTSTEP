@@ -1,15 +1,14 @@
 package org.nhnnext.nextstep.core.domain;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.data.domain.Persistable;
+import java.io.Serializable;
 
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")

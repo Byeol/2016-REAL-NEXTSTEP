@@ -2,7 +2,7 @@ package org.nhnnext.nextstep.core.domain;
 
 import org.springframework.hateoas.Identifiable;
 
-import javax.persistence.*;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class AbstractEntity extends AbstractPersistable<Long> implements Identifiable<Long> {

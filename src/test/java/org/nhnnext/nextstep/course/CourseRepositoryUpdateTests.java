@@ -4,7 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.access.AccessDeniedException;
 
-public class CourseRepositoryDeleteTests extends AbstractCourseRepositoryTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public class CourseRepositoryUpdateTests extends AbstractCourseRepositoryTest {
 
     @Before
     public void init() {
@@ -14,29 +17,35 @@ public class CourseRepositoryDeleteTests extends AbstractCourseRepositoryTest {
     @Test
     public void withAnonymousUser() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withAnonymousUser(() -> delete(entity));
+        withAnonymousUser(() -> save(entity));
     }
 
     @Test
     public void withMockUser() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withMockUser(() -> delete(entity));
+        withMockUser(() -> save(entity));
     }
 
     @Test
     public void withMockInstructor() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
-        withMockInstructor(() -> delete(entity));
-        thrown.expect(AccessDeniedException.class);
-        withMockInstructor(() -> findOne(entity.getId()));
+        entity.setDescription("UPDATE");
+        withMockInstructor(() -> {
+            assertNotEquals(findOne(entity.getId()).getDescription(), "UPDATE");
+            save(entity);
+            assertEquals(findOne(entity.getId()).getDescription(), "UPDATE");
+        });
     }
 
     @Test
     public void withMockAlternativeInstructor() throws Exception {
         Course entity = (Course) withMockInstructor(() -> save(createCourse()));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withMockAlternativeInstructor(() -> delete(entity));
+        withMockAlternativeInstructor(() -> save(entity));
     }
 }

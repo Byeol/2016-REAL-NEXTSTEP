@@ -24,9 +24,6 @@ public class SpringSecurityAuditorAware implements AuditorAware<User> {
 
 		logger.info("Current Auditor: " + authentication.getName());
 
-		User user = this.repository.findByUsername(authentication.getName()).orElse(null);
-		System.out.println("HERE: " + user);
-
 		return this.repository.findByUsername(authentication.getName()).orElse(null);
 	}
 }

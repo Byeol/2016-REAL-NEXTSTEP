@@ -30,13 +30,13 @@ public class CourseSession extends Session {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    @OneToMany(mappedBy = "session")
-    private final List<Enrollment> enrollments = new ArrayList<>();
-
-    public List<User> getParticipants() {
-        return this.enrollments.stream()
-                .filter(Enrollment::isApproved)
-                .map(Enrollment::getUser)
-                .collect(Collectors.toList());
-    }
+//    @OneToMany(mappedBy = "session")
+//    private final List<Enrollment> enrollments = new ArrayList<>();
+//
+//    public List<User> getParticipants() {
+//        return this.enrollments.stream()
+//                .filter(Enrollment::isApproved)
+//                .map(Enrollment::getUser)
+//                .collect(Collectors.toList());
+//    }
 }

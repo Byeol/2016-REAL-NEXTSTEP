@@ -3,7 +3,6 @@ package org.nhnnext.nextstep.user.security;
 import lombok.RequiredArgsConstructor;
 import org.nhnnext.nextstep.user.SecurityUser;
 import org.nhnnext.nextstep.user.UserRepository;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
