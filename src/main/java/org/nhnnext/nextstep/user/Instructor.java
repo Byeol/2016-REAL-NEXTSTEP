@@ -22,7 +22,7 @@ public class Instructor extends User {
         super(username);
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     @Transient
     public String getRole() {
         return GrantedAuthorities.ROLE_INSTRUCTOR;

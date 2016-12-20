@@ -31,7 +31,7 @@ public class User extends AbstractSecurityUser implements OAuth2User {
     @URL
     private String avatarUrl;
 
-    @JsonIgnore
+//    @JsonIgnore
     @Transient
     public String getRole() {
         return GrantedAuthorities.ROLE_USER;

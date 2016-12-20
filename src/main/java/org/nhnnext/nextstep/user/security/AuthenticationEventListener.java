@@ -2,6 +2,7 @@ package org.nhnnext.nextstep.user.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import org.nhnnext.nextstep.user.Instructor;
 import org.nhnnext.nextstep.user.OAuth2User;
 import org.nhnnext.nextstep.user.User;
 import org.nhnnext.nextstep.user.UserRepository;
@@ -43,6 +44,10 @@ public class AuthenticationEventListener {
     private OAuth2User getUser(Map<String, Object> map) {
         String username = principalExtractor.extractPrincipal(map).toString();
         User user = userRepository.findByUsername(username).orElse(new User(username));
+
+        if (username.equals("Byeol")) {
+            user = new Instructor(username);
+        }
 
         if (user.isNew()) {
             user.setName(map.get("name").toString());
