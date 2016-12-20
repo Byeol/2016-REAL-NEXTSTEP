@@ -62,7 +62,8 @@ public class Session extends AbstractAuditingEntity<User, Long> {
 //        this.name = name;
 //    }
 
-    @Column(unique = true, nullable = false)
+//    @Column(unique = true, nullable = false)
+    @NotNull
     private final String name;
 
     private String description;
