@@ -10,6 +10,6 @@ security:
     sso:
       login-path: /api/login
 
-#logging:
-#  level:
-#    org.springframework.security: DEBUG
+logging:
+  level:
+    org.springframework.security: DEBUG
