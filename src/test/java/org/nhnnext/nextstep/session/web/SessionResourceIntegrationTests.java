@@ -1,5 +1,6 @@
 package org.nhnnext.nextstep.session.web;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.emptyArray;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -49,7 +51,10 @@ public class SessionResourceIntegrationTests extends AbstractIntegratedRepositor
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.name", equalTo(session.getName())))
-                .andExpect(jsonPath("$.description", equalTo(session.getDescription())));
+                .andExpect(jsonPath("$.description", equalTo(session.getDescription())))
+                .andExpect(jsonPath("$.state", equalTo(session.getState().toString())));
+//                .andExpect(jsonPath("$.lectures", emptyArray()))
+//                .andExpect(jsonPath("$.lecturePos", emptyArray()));
     }
 
     @Test

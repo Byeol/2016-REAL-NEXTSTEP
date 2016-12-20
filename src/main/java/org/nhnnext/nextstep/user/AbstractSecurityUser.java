@@ -23,6 +23,6 @@ public abstract class AbstractSecurityUser extends AbstractEntity implements Sec
     @JsonIgnore
     @Transient
     public String getPassword() {
-        return null;
+        return "PASSWORD";
     }
 }

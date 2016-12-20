@@ -15,4 +15,6 @@ public interface SessionDetail {
     List<LectureExcerpt> getLectures();
 
     Object getLecturePos();
+
+    Session.State getState();
 }
