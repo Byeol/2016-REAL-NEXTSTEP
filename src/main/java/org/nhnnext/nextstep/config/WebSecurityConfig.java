@@ -1,8 +1,8 @@
 package org.nhnnext.nextstep.config;
 
 import org.nhnnext.nextstep.core.ClientResources;
-import org.nhnnext.nextstep.core.HttpStatusSuccessHandler;
-import org.nhnnext.nextstep.core.MyAuthorizationCodeAccessTokenProvider;
+import org.nhnnext.nextstep.core.security.HttpStatusSuccessHandler;
+import org.nhnnext.nextstep.core.security.MyAuthorizationCodeAccessTokenProvider;
 import org.nhnnext.nextstep.user.security.SpringDataJpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private Filter ssoFilter() {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
-		filters.add(ssoFilter(github(), "/login/github"));
+		filters.add(ssoFilter(github(), "/api/login/github"));
 		filter.setFilters(filters);
 		return filter;
 	}

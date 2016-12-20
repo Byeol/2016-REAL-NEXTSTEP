@@ -1,4 +1,4 @@
-package org.nhnnext.nextstep.core;
+package org.nhnnext.nextstep.core.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;

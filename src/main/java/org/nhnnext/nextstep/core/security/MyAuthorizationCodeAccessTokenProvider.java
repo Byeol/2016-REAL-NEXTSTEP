@@ -1,4 +1,4 @@
-package org.nhnnext.nextstep.core;
+package org.nhnnext.nextstep.core.security;
 
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
 
