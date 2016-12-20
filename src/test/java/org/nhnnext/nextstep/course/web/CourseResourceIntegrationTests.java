@@ -50,6 +50,8 @@ public class CourseResourceIntegrationTests extends AbstractIntegratedRepository
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.name", equalTo(course.getName())))
                 .andExpect(jsonPath("$.description", equalTo(course.getDescription())))
-                .andExpect(jsonPath("$.instructors[0].username", equalTo(course.getInstructors().get(0).getUsername())));
+                .andExpect(jsonPath("$.instructors[0].username", equalTo(course.getInstructors().get(0).getUsername())))
+                .andExpect(jsonPath("$.masterSession.name", equalTo(course.getMasterSession().getName())))
+                .andExpect(jsonPath("$.defaultSession.name", equalTo(course.getDefaultSession().getName())));
     }
 }

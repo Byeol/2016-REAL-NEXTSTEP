@@ -1,8 +1,8 @@
 package org.nhnnext.nextstep.course;
 
-import org.nhnnext.nextstep.session.Session;
-import org.nhnnext.nextstep.session.SessionExcerpt;
+import org.nhnnext.nextstep.session.*;
 import org.nhnnext.nextstep.user.Instructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;
@@ -17,4 +17,8 @@ public interface CourseDetail {
     List<Instructor> getInstructors();
 
     List<SessionExcerpt> getSessions();
+
+    SessionDetail getMasterSession();
+
+    SessionDetail getDefaultSession();
 }

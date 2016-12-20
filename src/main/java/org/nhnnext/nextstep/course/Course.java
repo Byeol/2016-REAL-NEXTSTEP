@@ -61,6 +61,18 @@ public class Course extends AbstractAuditingEntity<User, Long> {
         return getSessions().stream().filter(x -> Objects.equals(x.getName(), name)).findFirst();
     }
 
+    @Transient
+    @JsonIgnore
+    public Session getMasterSession() {
+        return getSession("master").orElseGet(null);
+    }
+
+    @Transient
+    @JsonIgnore
+    public Session getDefaultSession() {
+        return getSession("default").orElseGet(null);
+    }
+
     public void addToSessions(Session session) {
         getSessions().add(session);
         session.setCourse(this);
