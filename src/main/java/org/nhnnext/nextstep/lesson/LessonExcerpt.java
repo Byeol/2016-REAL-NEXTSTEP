@@ -5,6 +5,7 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(name = "excerpt", types = Lesson.class)
 public interface LessonExcerpt {
 
-    String getName();
+    Long getId();
 
+    String getName();
 }

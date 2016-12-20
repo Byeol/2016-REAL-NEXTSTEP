@@ -8,7 +8,9 @@ import java.util.List;
 @Projection(name = "excerpt", types = Lecture.class)
 public interface LectureExcerpt {
 
-    String getName();
-    List<LessonExcerpt> getLessons();
+    Long getId();
 
+    String getName();
+
+    List<LessonExcerpt> getLessons();
 }
