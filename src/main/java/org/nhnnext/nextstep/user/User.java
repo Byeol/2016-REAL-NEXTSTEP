@@ -14,7 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "username")
 @ToString(of = "username")
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance // (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("USER")
 public class User extends AbstractSecurityUser implements OAuth2User {
 

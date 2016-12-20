@@ -2,11 +2,13 @@ package org.nhnnext.nextstep.session;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.nhnnext.nextstep.core.ObjectConverter;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
-import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.course.Course;
-import org.nhnnext.nextstep.user.AuthenticationUtils;
+import org.nhnnext.nextstep.lecture.Lecture;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.nhnnext.nextstep.user.User;
 import org.springframework.security.acls.domain.BasePermission;
@@ -18,20 +20,52 @@ import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-//@NoArgsConstructor(force = true)
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
 @Data
-@MappedSuperclass
+@Entity
+@Inheritance
+//@DiscriminatorColumn
+//@MappedSuperclass
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Session extends AbstractAuditingEntity<User, Long> {
+
+    @Convert(converter = ObjectConverter.class)
+    private Object lecturePos = new ArrayList<Object>();
+
+    @NotNull
+    private State state = State.IN_SESSION;
+
+    public enum State {
+        UPCOMING, IN_SESSION
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "session")//(mappedBy = "course", fetch = FetchType.LAZY)
+//    @Cascade(CascadeType.ALL)
+    private final List<Lecture> lectures = new ArrayList<>();
+
+    public void addToLectures(Lecture lecture) {
+        getLectures().add(lecture);
+        lecture.setSession(this);
+    }
 
     @ManyToOne(cascade = CascadeType.REFRESH, optional = false) //(fetch = FetchType.EAGER) //(cascade = CascadeType.PERSIST)//(optional = false)
 //    @Cascade(CascadeType.ALL)
 //    @JoinColumn(name="COURSE_ID")
     private Course course;
 
+//    public Session(String name) {
+//        this.name = name;
+//    }
+
+    @Column(unique = true, nullable = false)
+    private final String name;
+
+    private String description;
 
     public boolean isInstructor(Authentication authentication) {
         Assert.notNull(getCourse());

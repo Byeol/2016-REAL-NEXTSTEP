@@ -3,14 +3,15 @@ package org.nhnnext.nextstep.session;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.nhnnext.nextstep.course.Course;
 import org.springframework.security.access.AccessDeniedException;
 
-public class CourseSessionRepositoryCreateTests extends AbstractCourseSessionRepositoryTest {
+public class CourseSessionRepositoryCreateTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
 
     @Before
     public void init() {
-        super.init();
+        initRepository();
     }
 
     @Test

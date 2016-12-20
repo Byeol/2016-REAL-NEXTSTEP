@@ -8,7 +8,7 @@ import java.io.Serializable;
 public abstract class AbstractRepositoryTest<T, R extends CrudRepository> extends AbstractIntegrationTestWithUser {
 
     @Autowired
-    private R repository;
+    protected R repository;
 
     protected void initRepository() {
         repository.deleteAll();

@@ -2,14 +2,15 @@ package org.nhnnext.nextstep.course;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class CourseRepositoryReadTests extends AbstractCourseRepositoryTest {
+public class CourseRepositoryReadTests extends AbstractIntegratedRepositoryTest<Course, CourseRepository> {
 
     @Before
     public void init() {
-        super.init();
+        initRepository();
     }
 
     @Test

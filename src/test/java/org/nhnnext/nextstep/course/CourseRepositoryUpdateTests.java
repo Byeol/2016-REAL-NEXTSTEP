@@ -2,16 +2,17 @@ package org.nhnnext.nextstep.course;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.springframework.security.access.AccessDeniedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class CourseRepositoryUpdateTests extends AbstractCourseRepositoryTest {
+public class CourseRepositoryUpdateTests extends AbstractIntegratedRepositoryTest<Course, CourseRepository> {
 
     @Before
     public void init() {
-        super.init();
+        initRepository();
     }
 
     @Test

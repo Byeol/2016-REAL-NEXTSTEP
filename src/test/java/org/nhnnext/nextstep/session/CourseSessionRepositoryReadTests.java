@@ -1,14 +1,15 @@
 package org.nhnnext.nextstep.session;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
+import org.nhnnext.nextstep.course.Course;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public class CourseSessionRepositoryReadTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
 
     @Before
     public void init() {
@@ -19,30 +20,31 @@ public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedReposi
     public void withAnonymousUser() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        thrown.expect(AccessDeniedException.class);
-        withAnonymousUser(() -> delete(entity));
+        CourseSession result = (CourseSession) withAnonymousUser(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockUser() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        thrown.expect(AccessDeniedException.class);
-        withMockUser(() -> delete(entity));
+        CourseSession result = (CourseSession) withMockUser(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockInstructor() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        withMockInstructor(() -> delete(entity));
+        CourseSession result = (CourseSession) withMockInstructor(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 
     @Test
     public void withMockAlternativeInstructor() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        thrown.expect(AccessDeniedException.class);
-        withMockAlternativeInstructor(() -> delete(entity));
+        CourseSession result = (CourseSession) withMockAlternativeInstructor(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
     }
 }

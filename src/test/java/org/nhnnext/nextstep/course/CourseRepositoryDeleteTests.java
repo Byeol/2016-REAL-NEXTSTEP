@@ -2,13 +2,14 @@ package org.nhnnext.nextstep.course;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.springframework.security.access.AccessDeniedException;
 
-public class CourseRepositoryDeleteTests extends AbstractCourseRepositoryTest {
+public class CourseRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<Course, CourseRepository> {
 
     @Before
     public void init() {
-        super.init();
+        initRepository();
     }
 
     @Test

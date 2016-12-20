@@ -3,9 +3,12 @@ package org.nhnnext.nextstep.course;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.session.CourseSession;
+import org.nhnnext.nextstep.session.MasterSession;
+import org.nhnnext.nextstep.session.Session;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.nhnnext.nextstep.user.Instructor;
@@ -18,17 +21,20 @@ import org.springframework.security.acls.model.Sid;
 import org.springframework.security.core.Authentication;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 //@NoArgsConstructor(force = true)
 @Data
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode(of = "id")
 @Entity
 public class Course extends AbstractAuditingEntity<User, Long> {
 
-    //    @NotEmpty
+    public Course() {
+        addToSessions(new MasterSession());
+        addToSessions(new CourseSession("default"));
+    }
+
+    @NotEmpty
     private String name;
 
     private String description;
@@ -49,10 +55,14 @@ public class Course extends AbstractAuditingEntity<User, Long> {
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")//(mappedBy = "course", fetch = FetchType.LAZY)
 //    @Cascade(CascadeType.ALL)
-    private final List<CourseSession> sessions = new ArrayList<>();
+    private final List<Session> sessions = new ArrayList<>();
 
-    public void addToSessions(CourseSession session) {
-        this.getSessions().add(session);
+    public Optional<Session> getSession(String name) {
+        return getSessions().stream().filter(x -> Objects.equals(x.getName(), name)).findFirst();
+    }
+
+    public void addToSessions(Session session) {
+        getSessions().add(session);
         session.setCourse(this);
     }
 

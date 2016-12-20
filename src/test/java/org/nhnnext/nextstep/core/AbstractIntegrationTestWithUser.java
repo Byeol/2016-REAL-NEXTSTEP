@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.Callable;
 
-public abstract class AbstractIntegrationTestWithUser extends AbstractIntegrationTest {
+public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegrationTest {
 
     private static final String USER_USERNAME = "user";
     private static final String INSTRUCTOR_USERNAME = "instructor";

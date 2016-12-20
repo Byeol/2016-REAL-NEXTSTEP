@@ -4,5 +4,5 @@ import org.nhnnext.nextstep.core.repository.AuditingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(exported = false, excerptProjection = SessionExcerpt.class)
-public interface CourseSessionRepository extends AuditingRepository<CourseSession, Long> {
+public interface MasterSessionRepository extends AuditingRepository<MasterSession, Long> {
 }

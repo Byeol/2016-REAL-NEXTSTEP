@@ -1,14 +1,14 @@
 package org.nhnnext.nextstep.session;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public class CourseSessionRepositoryUpdateTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
 
     @Before
     public void init() {
@@ -19,30 +19,38 @@ public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedReposi
     public void withAnonymousUser() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withAnonymousUser(() -> delete(entity));
+        withAnonymousUser(() -> save(entity));
     }
 
     @Test
     public void withMockUser() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withMockUser(() -> delete(entity));
+        withMockUser(() -> save(entity));
     }
 
     @Test
     public void withMockInstructor() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        withMockInstructor(() -> delete(entity));
+        entity.setDescription("UPDATE");
+        withMockInstructor(() -> {
+            assertNotEquals(findOne(entity.getId()).getDescription(), "UPDATE");
+            save(entity);
+            assertEquals(findOne(entity.getId()).getDescription(), "UPDATE");
+        });
     }
 
     @Test
     public void withMockAlternativeInstructor() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
+        entity.setDescription("UPDATE");
         thrown.expect(AccessDeniedException.class);
-        withMockAlternativeInstructor(() -> delete(entity));
+        withMockAlternativeInstructor(() -> save(entity));
     }
 }
