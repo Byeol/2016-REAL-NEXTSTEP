@@ -9,6 +9,8 @@ import java.util.List;
 @Projection(name = "detail", types = CourseSession.class)
 public interface CourseSessionDetail {
 
+    Long getId();
+
     String getName();
 
     String getDescription();
