@@ -5,7 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class AuthenticationUtils {
 
-    public static SecurityUser getUser(Authentication authentication) {
+    public static User getUser(Authentication authentication) {
         if (authentication == null) {
             return null;
         }

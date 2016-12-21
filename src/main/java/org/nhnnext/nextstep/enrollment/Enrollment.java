@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
+import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
@@ -25,12 +26,11 @@ import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor(force = true)
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
-public class Enrollment extends AbstractAuditingEntity<User, Long> {
+@Entity
+public class Enrollment extends AbstractCourseEntity {
 
     @Transient
     public User getUser() {
@@ -42,16 +42,6 @@ public class Enrollment extends AbstractAuditingEntity<User, Long> {
 
 //    @ManyToOne(optional = false)
 //    private final User user;
-
-//    public Enrollment(CourseSession session, User user) {
-//        this.session = session;
-//        this.user = user;
-//        this.status = Status.PENDING;
-//    }
-//
-//    public Enrollment() {
-//        this(null, null);
-//    }
 
     private Status status = Status.PENDING;
 
@@ -76,28 +66,12 @@ public class Enrollment extends AbstractAuditingEntity<User, Long> {
 
     @JsonIgnore
     @Transient
-    public List<Sid> getSids(Authentication authentication) {
-        List<Sid> sids = new ArrayList<>();
-
-        if (isCreatedBy(authentication)) {
-            sids.add(new GrantedAuthoritySid(GrantedAuthorities.ENROLLMENT_USER));
-        }
-
-        if (isInstructor(authentication)) {
-            sids.add(new GrantedAuthoritySid(GrantedAuthorities.COURSE_INSTRUCTOR));
-        }
-
-        return sids;
-    }
-
-    @JsonIgnore
-    @Transient
     public Acl getAcl() {
         MutableAcl acl = new AclImpl();
         acl.insertAce(acl.getEntries().size(), BasePermission.READ, new GrantedAuthoritySid(GrantedAuthorities.ROLE_ANONYMOUS), true);
         acl.insertAce(acl.getEntries().size(), BasePermission.CREATE, new GrantedAuthoritySid(GrantedAuthorities.ROLE_USER), true);
         acl.insertAce(acl.getEntries().size(), BasePermission.WRITE, new GrantedAuthoritySid(GrantedAuthorities.COURSE_INSTRUCTOR), true);
-        acl.insertAce(acl.getEntries().size(), BasePermission.DELETE, new GrantedAuthoritySid(GrantedAuthorities.ENROLLMENT_USER), true);
+        acl.insertAce(acl.getEntries().size(), BasePermission.DELETE, new GrantedAuthoritySid(GrantedAuthorities.ENTITY_OWNER), true);
         return acl;
     }
 }

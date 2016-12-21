@@ -2,6 +2,7 @@ package org.nhnnext.nextstep.course.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
+import org.nhnnext.nextstep.core.domain.AbstractAuditingUserEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.nhnnext.nextstep.user.User;
@@ -18,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class AbstractCourseEntity extends AbstractAuditingEntity<User, Long> implements CourseEntity {
+public abstract class AbstractCourseEntity extends AbstractAuditingUserEntity<Long> implements CourseEntity {
 
     @JsonIgnore
     @Transient
     public List<Sid> getSids(Authentication authentication) {
-        List<Sid> sids = new ArrayList<>();
+        List<Sid> sids = super.getSids(authentication);
 
         if (isInstructor(authentication)) {
             sids.add(new GrantedAuthoritySid(GrantedAuthorities.COURSE_INSTRUCTOR));

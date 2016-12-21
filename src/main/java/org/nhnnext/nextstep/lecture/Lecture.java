@@ -1,26 +1,19 @@
 package org.nhnnext.nextstep.lecture;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nhnnext.nextstep.core.ObjectConverter;
-import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
-import org.nhnnext.nextstep.core.domain.AbstractEntity;
-import org.nhnnext.nextstep.core.domain.acls.AclImpl;
+import org.nhnnext.nextstep.course.Course;
 import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
 import org.nhnnext.nextstep.lesson.Lesson;
+import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.Session;
-import org.nhnnext.nextstep.user.GrantedAuthorities;
-import org.nhnnext.nextstep.user.User;
-import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.domain.GrantedAuthoritySid;
-import org.springframework.security.acls.model.Acl;
-import org.springframework.security.acls.model.MutableAcl;
-import org.springframework.security.acls.model.Sid;
+import org.nhnnext.nextstep.session.domain.AbstractCourseSessionEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -32,10 +25,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 @Entity
-public class Lecture extends AbstractCourseEntity {
-
-    @Convert(converter = ObjectConverter.class)
-    private Object pos = new ArrayList<>();
+public class Lecture extends AbstractCourseSessionEntity {
 
     @NotEmpty
     private String name;
@@ -43,9 +33,11 @@ public class Lecture extends AbstractCourseEntity {
     @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
     private Session session;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "lecture")//(mappedBy = "course", fetch = FetchType.LAZY)
-//    @Cascade(CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecture")
     private final List<Lesson> lessons = new ArrayList<>();
+
+    @Convert(converter = ObjectConverter.class)
+    private Object pos = new ArrayList<>();
 
     public void addToLessons(Lesson lesson) {
         getLessons().add(lesson);
@@ -55,5 +47,15 @@ public class Lecture extends AbstractCourseEntity {
     public boolean isInstructor(Authentication authentication) {
         Assert.notNull(getSession());
         return getSession().isInstructor(authentication);
+    }
+
+    public boolean isParticipant(Authentication authentication) {
+        Assert.notNull(getSession());
+
+        if (!(getSession() instanceof CourseSession)) {
+            return false;
+        }
+
+        return ((CourseSession) getSession()).isParticipant(authentication);
     }
 }

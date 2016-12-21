@@ -21,7 +21,6 @@ public class Instructor extends User {
         super(username);
     }
 
-//    @JsonIgnore
     @Transient
     public String getRole() {
         return GrantedAuthorities.ROLE_INSTRUCTOR;

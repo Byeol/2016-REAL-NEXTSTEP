@@ -11,6 +11,8 @@ public interface AuditingEntity<U, ID extends Serializable> extends Auditable<U,
 
 	boolean isCreatedBy(final U createdBy);
 
+	boolean isCreatedBy(Authentication authentication);
+
 	List<Sid> getSids(Authentication authentication);
 
 	Acl getAcl();

@@ -2,7 +2,9 @@ package org.nhnnext.nextstep.core;
 
 import org.nhnnext.nextstep.course.Course;
 import org.nhnnext.nextstep.course.CourseRepository;
+import org.nhnnext.nextstep.discussion.Discussion;
 import org.nhnnext.nextstep.enrollment.Enrollment;
+import org.nhnnext.nextstep.enrollment.EnrollmentRepository;
 import org.nhnnext.nextstep.lecture.Lecture;
 import org.nhnnext.nextstep.lecture.LectureRepository;
 import org.nhnnext.nextstep.lesson.Lesson;
@@ -19,6 +21,9 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
 
     @Autowired
     private MySessionRepository sessionRepository;
+
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
 
     @Autowired
     private LectureRepository lectureRepository;
@@ -58,9 +63,18 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
         return entity;
     }
 
+    public void addEnrollmentToSession(CourseSession session) throws Exception {
+        Enrollment enrollment = new Enrollment();
+        session.addToEnrollments(enrollment);
+        withMockUser(() -> enrollmentRepository.save(enrollment));
+        enrollment.setStatus(Enrollment.Status.APPROVED);
+        withMockInstructor(() -> enrollmentRepository.save(enrollment));
+    }
+
     public Lecture createLecture() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession sessionEntity = (CourseSession) withMockInstructor(() -> sessionRepository.save(session));
+
         Lecture entity = new Lecture();
         entity.setName("name");
         sessionEntity.addToLectures(entity);
@@ -74,6 +88,16 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
         entity.setName("name");
         entity.setContent("content");
         lectureEntity.addToLessons(entity);
+        return entity;
+    }
+
+    public Discussion createDiscussion() throws Exception {
+        Lesson lesson = createLesson();
+        Lesson lessonEntity = (Lesson) withMockInstructor(() -> lessonRepository.save(lesson));
+        addEnrollmentToSession((CourseSession) lessonEntity.getLecture().getSession());
+        Discussion entity = new Discussion();
+        entity.setComment("comment");
+        lessonEntity.addToDiscussions(entity);
         return entity;
     }
 }

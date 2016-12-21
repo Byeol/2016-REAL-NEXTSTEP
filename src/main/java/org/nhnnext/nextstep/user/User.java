@@ -17,7 +17,6 @@ import javax.persistence.*;
 @DiscriminatorValue("USER")
 public class User extends AbstractSecurityUser implements OAuth2User {
 
-    //    @Id
     @Column(unique = true, nullable = false)
     private final String username;
 
@@ -30,7 +29,6 @@ public class User extends AbstractSecurityUser implements OAuth2User {
     @URL
     private String avatarUrl;
 
-//    @JsonIgnore
     @Transient
     public String getRole() {
         return GrantedAuthorities.ROLE_USER;

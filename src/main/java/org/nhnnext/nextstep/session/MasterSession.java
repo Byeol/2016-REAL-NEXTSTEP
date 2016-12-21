@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-//@NoArgsConstructor(force = true)
 @Data
 @Entity
 @DiscriminatorValue(SessionType.Values.MASTER)

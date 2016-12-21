@@ -10,6 +10,7 @@ import java.util.concurrent.Callable;
 public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegrationTest {
 
     private static final String USER_USERNAME = "user";
+    private static final String ALTERNATIVE_USER_USERNAME = "user2";
     private static final String INSTRUCTOR_USERNAME = "instructor";
     private static final String ALTERNATIVE_INSTRUCTOR_USERNAME = "instructor2";
 
@@ -23,12 +24,16 @@ public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegra
         user.setName("Test user");
         userRepository.save(user);
 
+        user = new User(ALTERNATIVE_USER_USERNAME);
+        user.setName("Alternative user");
+        userRepository.save(user);
+
         user = new Instructor(INSTRUCTOR_USERNAME);
         user.setName("Test instructor");
         userRepository.save(user);
 
         user = new Instructor(ALTERNATIVE_INSTRUCTOR_USERNAME);
-        user.setName("Test instructor");
+        user.setName("Alternative instructor");
         userRepository.save(user);
     }
 
@@ -50,6 +55,14 @@ public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegra
 
     protected void withMockUser(Runnable runnable) {
         SecurityUtils.runAs(SecurityUtils.withMockUser(loadUser(USER_USERNAME)), runnable);
+    }
+
+    protected Object withMockAlternativeUser(Callable callable) throws Exception {
+        return SecurityUtils.runAs(SecurityUtils.withMockUser(loadUser(ALTERNATIVE_USER_USERNAME)), callable);
+    }
+
+    protected void withMockAlternativeUser(Runnable runnable) {
+        SecurityUtils.runAs(SecurityUtils.withMockUser(loadUser(ALTERNATIVE_USER_USERNAME)), runnable);
     }
 
     protected Object withMockInstructor(Callable callable) throws Exception {

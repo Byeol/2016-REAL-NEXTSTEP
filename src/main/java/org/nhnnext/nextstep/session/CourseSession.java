@@ -1,16 +1,15 @@
 package org.nhnnext.nextstep.session;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.nhnnext.nextstep.enrollment.Enrollment;
 import org.nhnnext.nextstep.enrollment.EnrollmentException;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
 import org.nhnnext.nextstep.user.SecurityUser;
+import org.nhnnext.nextstep.user.User;
 import org.springframework.security.core.Authentication;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ import java.util.stream.Collectors;
 @DiscriminatorValue(SessionType.Values.COURSE)
 public class CourseSession extends Session {
 
-    //    @Column(unique = true, nullable = false)
     @NotNull
     private final String name;
 
@@ -35,10 +33,6 @@ public class CourseSession extends Session {
     @NotNull
     private State state = State.IN_SESSION;
 
-    public enum State {
-        UPCOMING, IN_SESSION
-    }
-
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
@@ -46,12 +40,40 @@ public class CourseSession extends Session {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
     private final List<Enrollment> enrollments = new ArrayList<>();
 
+    @JsonIgnore
+    @Transient
     public boolean isEnrolled(Authentication authentication) {
         return isEnrolled(AuthenticationUtils.getUser(authentication));
     }
 
-    public boolean isEnrolled(SecurityUser user) {
-        return getEnrollments().stream().map(Enrollment::getUser).collect(Collectors.toList()).contains(user);
+    @JsonIgnore
+    @Transient
+    public boolean isEnrolled(User user) {
+        return getEnrollments().stream()
+                .map(Enrollment::getUser)
+                .collect(Collectors.toList())
+                .contains(user);
+    }
+
+    @JsonIgnore
+    @Transient
+    public List<User> getParticipants() {
+        return this.enrollments.stream()
+                .filter(Enrollment::isApproved)
+                .map(Enrollment::getUser)
+                .collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    @Transient
+    public boolean isParticipant(User user) {
+        return getParticipants().contains(user);
+    }
+
+    @JsonIgnore
+    @Transient
+    public boolean isParticipant(Authentication authentication) {
+        return isParticipant(AuthenticationUtils.getUser(authentication));
     }
 
     public void addToEnrollments(Enrollment enrollment) {
@@ -63,10 +85,7 @@ public class CourseSession extends Session {
         enrollment.setSession(this);
 
     }
-//    public List<User> getParticipants() {
-//        return this.enrollments.stream()
-//                .filter(Enrollment::isApproved)
-//                .map(Enrollment::getUser)
-//                .collect(Collectors.toList());
-//    }
+    public enum State {
+        UPCOMING, IN_SESSION
+    }
 }
