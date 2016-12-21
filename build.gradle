@@ -1,24 +1,9 @@
-buildscript {
-	repositories { jcenter() }
-	dependencies {
-		classpath 'org.springframework:springloaded:1.2.5.RELEASE'
-	}
-}
-
 plugins {
 	id "org.springframework.boot" version "1.4.2.RELEASE"
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
-
-idea {
-	module {
-		inheritOutputDirs = false
-		outputDir = file("$buildDir/classes/main/")
-	}
-}
 
 jar {
 	baseName = 'nextstep'

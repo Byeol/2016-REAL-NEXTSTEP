@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @CommonsLog
@@ -50,7 +51,6 @@ public class AuthenticationEventListener {
 
     private UserDetails getUser(Map<String, Object> map) {
         String username = principalExtractor.extractPrincipal(map).toString();
-//        User user = userRepository.findByUsername(username).orElse(new User(username));
 
         UserDetails user;
 
@@ -63,9 +63,11 @@ public class AuthenticationEventListener {
                 newUser = new Instructor(username);
             }
 
-            newUser.setName(map.get("name").toString());
-            newUser.setEmail(map.get("email").toString());
-            newUser.setAvatarUrl(map.get("avatar_url").toString());
+            newUser.setName(username);
+
+            Optional.ofNullable(map.get("name")).map(Object::toString).ifPresent(newUser::setName);
+            Optional.ofNullable(map.get("email")).map(Object::toString).ifPresent(newUser::setEmail);
+            Optional.ofNullable(map.get("avatar_url")).map(Object::toString).ifPresent(newUser::setAvatarUrl);
 
             logger.info("Creating new user: " + username);
             userRepository.save(newUser);

@@ -3,7 +3,7 @@ spring:
     rest:
       base-path: /api
   profiles:
-    active: production
+    active: local
   jpa:
     properties:
       hibernate:

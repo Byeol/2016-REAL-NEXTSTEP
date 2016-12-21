@@ -43,12 +43,32 @@ public class SessionResourceIntegrationTests extends AbstractIntegratedRepositor
     }
 
     @Test
-    public void updatePos() throws Exception {
+    public void updatePosWithoutSubLecture() throws Exception {
+        updatePos(new ArrayList<>(Arrays.asList(1, 2, 3)));
+    }
+
+    @Test
+    public void updatePosWithSubLecture() throws Exception {
+        updatePos(new ArrayList<>(Arrays.asList(1, 2, Arrays.asList(3, 4), 5)));
+    }
+
+    @Test
+    public void updatePosStartWithSubLecture() throws Exception {
+        updatePos(new ArrayList<>(Arrays.asList(Arrays.asList(3, 4))));
+    }
+
+    @Test
+    public void updatePosTwice() throws Exception {
+        updatePos(new ArrayList<>(Arrays.asList(Arrays.asList(1, 2))));
+        updatePos(new ArrayList<>(Arrays.asList(Arrays.asList(1, 2))));
+    }
+
+    public void updatePos(Object pos) throws Exception {
         CourseSession session = createCourseSession();
         CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
 
         Map<String, Object> content = new HashMap<>();
-        content.put("pos", new ArrayList<>(Arrays.asList(1, 2, Arrays.asList(3, 4), 5)));
+        content.put("pos", pos);
 
         withMockInstructor(() -> mvc.perform(patch("/api/sessions/" + entity.getId()).content(json(content)))
                 .andDo(print())
@@ -59,6 +79,5 @@ public class SessionResourceIntegrationTests extends AbstractIntegratedRepositor
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.pos", equalTo(content.get("pos")))));
-//                .andExpect(jsonPath("$.lecturePos").value(content.get("lecturePos"))));//equalTo(json(content)))));
     }
 }
