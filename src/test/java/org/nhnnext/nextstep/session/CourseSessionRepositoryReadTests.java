@@ -9,7 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class CourseSessionRepositoryReadTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
+public class CourseSessionRepositoryReadTests extends AbstractIntegratedRepositoryTest<CourseSession, MySessionRepository> {
 
     @Before
     public void init() {

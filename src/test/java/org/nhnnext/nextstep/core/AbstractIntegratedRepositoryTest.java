@@ -2,6 +2,7 @@ package org.nhnnext.nextstep.core;
 
 import org.nhnnext.nextstep.course.Course;
 import org.nhnnext.nextstep.course.CourseRepository;
+import org.nhnnext.nextstep.enrollment.Enrollment;
 import org.nhnnext.nextstep.lecture.Lecture;
 import org.nhnnext.nextstep.lecture.LectureRepository;
 import org.nhnnext.nextstep.lesson.Lesson;
@@ -60,6 +61,14 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
         session.setDescription("description");
         courseEntity.addToSessions(session);
         return session;
+    }
+
+    public Enrollment createEnrollment() throws Exception {
+        CourseSession session = createCourseSession();
+        CourseSession sessionEntity = (CourseSession) withMockInstructor(() -> sessionRepository.save(session));
+        Enrollment entity = new Enrollment();
+        sessionEntity.addToEnrollments(entity);
+        return entity;
     }
 
     public Lecture createLecture() throws Exception {

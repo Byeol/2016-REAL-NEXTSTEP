@@ -25,24 +25,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Data
 @Entity
 @Inheritance
 //@DiscriminatorColumn
 //@MappedSuperclass
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Session extends AbstractAuditingEntity<User, Long> {
+public abstract class Session extends AbstractAuditingEntity<User, Long> {
 
     @Convert(converter = ObjectConverter.class)
     private Object lecturePos = new ArrayList<Object>();
-
-    @NotNull
-    private State state = State.IN_SESSION;
-
-    public enum State {
-        UPCOMING, IN_SESSION
-    }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "session")//(mappedBy = "course", fetch = FetchType.LAZY)
 //    @Cascade(CascadeType.ALL)
@@ -61,12 +54,6 @@ public class Session extends AbstractAuditingEntity<User, Long> {
 //    public Session(String name) {
 //        this.name = name;
 //    }
-
-//    @Column(unique = true, nullable = false)
-    @NotNull
-    private final String name;
-
-    private String description;
 
     public boolean isInstructor(Authentication authentication) {
         Assert.notNull(getCourse());

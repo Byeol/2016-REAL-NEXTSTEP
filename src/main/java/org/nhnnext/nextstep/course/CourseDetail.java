@@ -16,9 +16,9 @@ public interface CourseDetail {
 
     List<Instructor> getInstructors();
 
-    List<SessionExcerpt> getSessions();
+    List<CourseSessionExcerpt> getCourseSessions();
 
-    SessionDetail getMasterSession();
+    MasterSessionDetail getMasterSession();
 
-    SessionDetail getDefaultSession();
+    CourseSessionDetail getDefaultSession();
 }

@@ -1,6 +1,5 @@
 package org.nhnnext.nextstep.course;
 
-import org.nhnnext.nextstep.session.SessionExcerpt;
 import org.nhnnext.nextstep.user.Instructor;
 import org.springframework.data.rest.core.config.Projection;
 

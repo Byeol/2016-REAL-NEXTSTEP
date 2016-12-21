@@ -5,16 +5,10 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;
 
-@Projection(name = "detail", types = Session.class)
-public interface SessionDetail {
-
-    String getName();
-
-    String getDescription();
+@Projection(name = "detail", types = MasterSession.class)
+public interface MasterSessionDetail {
 
     List<LectureExcerpt> getLectures();
 
     Object getLecturePos();
-
-    Session.State getState();
 }

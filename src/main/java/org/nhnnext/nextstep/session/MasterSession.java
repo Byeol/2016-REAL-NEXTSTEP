@@ -10,8 +10,4 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(SessionType.Values.MASTER)
 public class MasterSession extends Session {
-
-    public MasterSession() {
-        super("master");
-    }
 }

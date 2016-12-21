@@ -8,4 +8,5 @@ public class GrantedAuthorities {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     public static final String COURSE_INSTRUCTOR = "COURSE_INSTRUCTOR";
+    public static final String ENROLLMENT_USER = "ENROLLMENT_USER";
 }

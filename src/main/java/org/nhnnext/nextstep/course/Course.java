@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 //@NoArgsConstructor(force = true)
 @Data
@@ -31,7 +32,7 @@ public class Course extends AbstractAuditingEntity<User, Long> {
 
     public Course() {
         addToSessions(new MasterSession());
-        addToSessions(new CourseSession("default"));
+        addToSessions(new CourseSession("Default Session"));
     }
 
     @NotEmpty
@@ -53,24 +54,32 @@ public class Course extends AbstractAuditingEntity<User, Long> {
 
 //    @Column(unique = true)
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")//(mappedBy = "course", fetch = FetchType.LAZY)
 //    @Cascade(CascadeType.ALL)
     private final List<Session> sessions = new ArrayList<>();
 
-    public Optional<Session> getSession(String name) {
-        return getSessions().stream().filter(x -> Objects.equals(x.getName(), name)).findFirst();
+    @Transient
+    public List<Session> getCourseSessions() {
+        return this.sessions.stream().filter(x -> x instanceof CourseSession).collect(Collectors.toList());
     }
+
+//    public Optional<Session> getSession(String name) {
+//        return getSessions().stream().filter(x -> Objects.equals(x.getName(), name)).findFirst();
+//    }
 
     @Transient
     @JsonIgnore
     public Session getMasterSession() {
-        return getSession("master").orElseGet(null);
+        return this.sessions.stream().filter(x -> x instanceof MasterSession).findFirst().orElseGet(null);
+//        return getSession("master").orElseGet(null);
     }
 
     @Transient
     @JsonIgnore
     public Session getDefaultSession() {
-        return getSession("default").orElseGet(null);
+        return this.sessions.stream().filter(x -> x instanceof CourseSession).findFirst().orElseGet(null);
+//        return getSession("default").orElseGet(null);
     }
 
     public void addToSessions(Session session) {

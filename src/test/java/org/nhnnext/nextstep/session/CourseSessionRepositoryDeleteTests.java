@@ -8,7 +8,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<Session, MySessionRepository> {
+public class CourseSessionRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<CourseSession, MySessionRepository> {
 
     @Before
     public void init() {
