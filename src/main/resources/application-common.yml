@@ -1,0 +1,22 @@
+spring:
+  data:
+    rest:
+      base-path: /api
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+
+security:
+  oauth2:
+    sso:
+      login-path: /api/login
+
+github:
+  client:
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+    preferTokenInfo: false
