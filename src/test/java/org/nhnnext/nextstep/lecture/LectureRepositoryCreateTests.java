@@ -1,4 +1,4 @@
-package org.nhnnext.nextstep.session;
+package org.nhnnext.nextstep.lecture;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.springframework.security.access.AccessDeniedException;
 
-public class CourseSessionRepositoryCreateTests extends AbstractIntegratedRepositoryTest<CourseSession, MySessionRepository> {
+public class LectureRepositoryCreateTests extends AbstractIntegratedRepositoryTest<Lecture, LectureRepository> {
 
     @Before
     public void init() {
@@ -15,30 +15,30 @@ public class CourseSessionRepositoryCreateTests extends AbstractIntegratedReposi
 
     @Test
     public void withAnonymousUser() throws Exception {
-        CourseSession session = createCourseSession();
+        Lecture lecture = createLecture();
         thrown.expect(AccessDeniedException.class);
-        withAnonymousUser(() -> save(session));
+        withAnonymousUser(() -> save(lecture));
     }
 
     @Test
     public void withMockUser() throws Exception {
-        CourseSession session = createCourseSession();
+        Lecture lecture = createLecture();
         thrown.expect(AccessDeniedException.class);
-        withMockUser(() -> save(session));
+        withMockUser(() -> save(lecture));
     }
 
     @Test
     public void withMockInstructor() throws Exception {
-        CourseSession session = createCourseSession();
-        CourseSession entity = (CourseSession) withMockInstructor(() -> save(session));
-        CourseSession result = (CourseSession) withMockInstructor(() -> findOne(entity.getId()));
+        Lecture lecture = createLecture();
+        Lecture entity = (Lecture) withMockInstructor(() -> save(lecture));
+        Lecture result = (Lecture) withMockInstructor(() -> findOne(entity.getId()));
         Assert.assertEquals(entity, result);
     }
 
     @Test
     public void withMockAlternativeInstructor() throws Exception {
-        CourseSession session = createCourseSession();
+        Lecture lecture = createLecture();
         thrown.expect(AccessDeniedException.class);
-        withMockAlternativeInstructor(() -> save(session));
+        withMockAlternativeInstructor(() -> save(lecture));
     }
 }

@@ -2,15 +2,14 @@ package org.nhnnext.nextstep.enrollment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
-import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
-import org.nhnnext.nextstep.user.Instructor;
 import org.nhnnext.nextstep.user.User;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
@@ -22,14 +21,15 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor(force = true)
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
-@ToString(callSuper = true)
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
 public class Enrollment extends AbstractAuditingEntity<User, Long> {
 
     @Transient
@@ -66,7 +66,7 @@ public class Enrollment extends AbstractAuditingEntity<User, Long> {
     }
 
     public boolean isCreatedBy(Authentication authentication) {
-        return getCreatedBy().equals(AuthenticationUtils.getUser(authentication));
+        return Objects.equals(getCreatedBy(), AuthenticationUtils.getUser(authentication));
     }
 
     public boolean isInstructor(Authentication authentication) {

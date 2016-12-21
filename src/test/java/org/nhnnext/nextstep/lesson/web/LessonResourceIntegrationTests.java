@@ -3,8 +3,6 @@ package org.nhnnext.nextstep.lesson.web;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
-import org.nhnnext.nextstep.lecture.Lecture;
-import org.nhnnext.nextstep.lecture.LectureRepository;
 import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;

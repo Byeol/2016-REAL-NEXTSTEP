@@ -4,9 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 public class CourseCreateTests extends AbstractIntegratedRepositoryTest<Course, CourseRepository> {
 
     @Before

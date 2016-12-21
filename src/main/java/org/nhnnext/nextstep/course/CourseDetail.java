@@ -1,8 +1,9 @@
 package org.nhnnext.nextstep.course;
 
-import org.nhnnext.nextstep.session.*;
+import org.nhnnext.nextstep.session.CourseSessionDetail;
+import org.nhnnext.nextstep.session.CourseSessionExcerpt;
+import org.nhnnext.nextstep.session.MasterSessionDetail;
 import org.nhnnext.nextstep.user.Instructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;

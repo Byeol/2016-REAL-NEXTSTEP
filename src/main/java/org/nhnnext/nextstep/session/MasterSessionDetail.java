@@ -10,5 +10,5 @@ public interface MasterSessionDetail {
 
     List<LectureExcerpt> getLectures();
 
-    Object getLecturePos();
+    Object getPos();
 }

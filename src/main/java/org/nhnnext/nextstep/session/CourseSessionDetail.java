@@ -1,5 +1,6 @@
 package org.nhnnext.nextstep.session;
 
+import org.nhnnext.nextstep.enrollment.EnrollmentExcerpt;
 import org.nhnnext.nextstep.lecture.LectureExcerpt;
 import org.springframework.data.rest.core.config.Projection;
 
@@ -14,7 +15,9 @@ public interface CourseSessionDetail {
 
     List<LectureExcerpt> getLectures();
 
-    Object getLecturePos();
+    Object getPos();
 
     CourseSession.State getState();
+
+    List<EnrollmentExcerpt> getEnrollments();
 }

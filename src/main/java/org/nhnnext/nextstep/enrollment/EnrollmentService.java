@@ -1,6 +1,5 @@
 package org.nhnnext.nextstep.enrollment;
 
-import org.nhnnext.nextstep.session.CourseSession;
 import org.springframework.stereotype.Service;
 
 @Service

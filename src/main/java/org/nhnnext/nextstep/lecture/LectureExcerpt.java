@@ -13,4 +13,6 @@ public interface LectureExcerpt {
     String getName();
 
     List<LessonExcerpt> getLessons();
+
+    Object getPos();
 }

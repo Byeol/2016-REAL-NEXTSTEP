@@ -1,16 +1,16 @@
 package org.nhnnext.nextstep.session;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.nhnnext.nextstep.enrollment.Enrollment;
 import org.nhnnext.nextstep.enrollment.EnrollmentException;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
 import org.nhnnext.nextstep.user.SecurityUser;
-import org.nhnnext.nextstep.user.User;
 import org.springframework.security.core.Authentication;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
 @Entity
 @DiscriminatorValue(SessionType.Values.COURSE)
 public class CourseSession extends Session {
@@ -41,7 +43,7 @@ public class CourseSession extends Session {
 
     private LocalDateTime endDate;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "session")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
     private final List<Enrollment> enrollments = new ArrayList<>();
 
     public boolean isEnrolled(Authentication authentication) {

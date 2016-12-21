@@ -9,21 +9,8 @@ import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.MySessionRepository;
-import org.nhnnext.nextstep.user.User;
-import org.nhnnext.nextstep.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.mock.http.MockHttpOutputMessage;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.concurrent.Callable;
-
-import static org.junit.Assert.assertNotNull;
 
 public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudRepository> extends AbstractRepositoryTest<T, R> {
 

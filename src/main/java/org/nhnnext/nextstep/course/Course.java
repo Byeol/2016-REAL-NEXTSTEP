@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
+import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
+import org.nhnnext.nextstep.course.domain.CourseEntity;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.MasterSession;
 import org.nhnnext.nextstep.session.Session;
@@ -20,15 +22,20 @@ import org.springframework.security.acls.model.MutableAcl;
 import org.springframework.security.acls.model.Sid;
 import org.springframework.security.core.Authentication;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 //@NoArgsConstructor(force = true)
 @Data
 @EqualsAndHashCode(of = "id")
 @Entity
-public class Course extends AbstractAuditingEntity<User, Long> {
+public class Course extends AbstractCourseEntity {
 
     public Course() {
         addToSessions(new MasterSession());
@@ -55,7 +62,7 @@ public class Course extends AbstractAuditingEntity<User, Long> {
 //    @Column(unique = true)
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")//(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")//(mappedBy = "course", fetch = FetchType.LAZY)
 //    @Cascade(CascadeType.ALL)
     private final List<Session> sessions = new ArrayList<>();
 
@@ -92,18 +99,6 @@ public class Course extends AbstractAuditingEntity<User, Long> {
 
     public boolean isInstructor(Authentication authentication) {
         return getInstructors().contains(AuthenticationUtils.getUser(authentication));
-    }
-
-    @JsonIgnore
-    @Transient
-    public List<Sid> getSids(Authentication authentication) {
-        List<Sid> sids = new ArrayList<>();
-
-        if (isInstructor(authentication)) {
-            sids.add(new GrantedAuthoritySid(GrantedAuthorities.COURSE_INSTRUCTOR));
-        }
-
-        return sids;
     }
 
     @JsonIgnore
