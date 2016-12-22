@@ -2,6 +2,8 @@ package org.nhnnext.nextstep.user.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import org.nhnnext.nextstep.core.NextstepProperties;
+import org.nhnnext.nextstep.user.Administrator;
 import org.nhnnext.nextstep.user.Instructor;
 import org.nhnnext.nextstep.user.User;
 import org.nhnnext.nextstep.user.UserRepository;
@@ -28,6 +30,8 @@ public class AuthenticationEventListener {
     private final UserRepository userRepository;
 
     private final SpringDataJpaUserDetailsService userDetailsService;
+    private final NextstepProperties nextstepProperties;
+
 
     @EventListener
     public void handleAuthenticationSuccess(InteractiveAuthenticationSuccessEvent event) {
@@ -57,13 +61,7 @@ public class AuthenticationEventListener {
         try {
             user = userDetailsService.loadUserByUsername(username);
         } catch (UsernameNotFoundException e) {
-            User newUser = new User(username);
-
-            if (username.equals("Byeol")) {
-                newUser = new Instructor(username);
-            }
-
-            newUser.setName(username);
+            User newUser = getNewUser(username);
 
             Optional.ofNullable(map.get("name")).map(Object::toString).ifPresent(newUser::setName);
             Optional.ofNullable(map.get("email")).map(Object::toString).ifPresent(newUser::setEmail);
@@ -74,19 +72,21 @@ public class AuthenticationEventListener {
 
             user = userDetailsService.loadUserByUsername(username);
         }
+        return user;
+    }
 
-//        if (user.isNew()) {
-//            if (username.equals("Byeol")) {
-//                user = new Instructor(username);
-//            }
-//
-//            user.setName(map.get("name").toString());
-//            user.setEmail(map.get("email").toString());
-//            user.setAvatarUrl(map.get("avatar_url").toString());
-//
-//            logger.info("Creating new user: " + username);
-//            userRepository.save(user);
-//        }
+    private User getNewUser(String username) {
+        User user = new User(username);
+
+        if (nextstepProperties.getAdmins().contains(username)) {
+            user = new Administrator(username);
+        }
+
+        if (nextstepProperties.getInstructors().contains(username)) {
+            user = new Instructor(username);
+        }
+
+        user.setName(username);
 
         return user;
     }

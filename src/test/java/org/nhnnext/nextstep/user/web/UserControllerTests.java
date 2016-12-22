@@ -22,17 +22,18 @@ public class UserControllerTests extends AbstractIntegratedRepositoryTest<User, 
     }
 
     @Test
-    public void getExcerpt() throws Exception {
+    public void getAuthenticatedUser() throws Exception {
         User entity = (User) withMockUser(this::getMockUser);
 
         withMockUser(() -> mvc.perform(get("/api/user"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
+                .andExpect(jsonPath("$.user.username", equalTo(entity.getUsername())))
+                .andExpect(jsonPath("$.user.name", equalTo(entity.getName())))
+                .andExpect(jsonPath("$.user.email", equalTo(entity.getEmail())))
+                .andExpect(jsonPath("$.user.avatarUrl", equalTo(entity.getAvatarUrl())))
+                .andExpect(jsonPath("$.authorities[0].authority", equalTo(entity.getRole())))
         );
-//                .andExpect(jsonPath("$.name", equalTo(entity.getName())))
-//                .andExpect(jsonPath("$.username", equalTo(entity.getUsername())))
-//                .andExpect(jsonPath("$.avatarUrl", equalTo(entity.getAvatarUrl())))
-//                .andExpect(jsonPath("$.role", equalTo(entity.getRole())));
     }
 }
