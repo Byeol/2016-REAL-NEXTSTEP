@@ -15,6 +15,15 @@ public class DiscussionRepositoryReadTests extends AbstractIntegratedRepositoryT
     }
 
     @Test
+    public void publicWithAnonymousUser() throws Exception {
+        Discussion discussion = createDiscussion();
+        setLessonAsPublic(discussion.getLesson());
+        Discussion entity = (Discussion) withMockUser(() -> save(discussion));
+        Discussion result = (Discussion) withAnonymousUser(() -> findOne(entity.getId()));
+        assertEquals(entity, result);
+    }
+
+    @Test
     public void withAnonymousUser() throws Exception {
         Discussion discussion = createDiscussion();
         Discussion entity = (Discussion) withMockUser(() -> save(discussion));

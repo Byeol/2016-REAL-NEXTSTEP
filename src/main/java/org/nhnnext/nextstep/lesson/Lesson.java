@@ -7,7 +7,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nhnnext.nextstep.discussion.Discussion;
 import org.nhnnext.nextstep.lecture.Lecture;
-import org.nhnnext.nextstep.session.domain.AbstractCourseSessionEntity;
+import org.nhnnext.nextstep.lesson.domain.AbstractLessonEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 @Entity
-public class Lesson extends AbstractCourseSessionEntity {
+public class Lesson extends AbstractLessonEntity {
 
     @NotEmpty
     private String name;
@@ -48,6 +48,10 @@ public class Lesson extends AbstractCourseSessionEntity {
     public enum Access {
         PUBLIC,
         PRIVATE
+    }
+
+    public boolean isPublic() {
+        return Access.PUBLIC.equals(access);
     }
 
     public boolean isInstructor(Authentication authentication) {

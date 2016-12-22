@@ -90,7 +90,6 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
     public Lecture createLecture() throws Exception {
         CourseSession session = createCourseSession();
         CourseSession sessionEntity = (CourseSession) withMockInstructor(() -> sessionRepository.save(session));
-
         Lecture entity = new Lecture();
         entity.setName("name");
         sessionEntity.addToLectures(entity);
@@ -100,6 +99,7 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
     public Lesson createLesson() throws Exception {
         Lecture lecture = createLecture();
         Lecture lectureEntity = (Lecture) withMockInstructor(() -> lectureRepository.save(lecture));
+        addEnrollmentToSession((CourseSession) lectureEntity.getSession());
         Lesson entity = new Lesson();
         entity.setName("name");
         entity.setContent("content");
@@ -107,10 +107,14 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
         return entity;
     }
 
+    public void setLessonAsPublic(Lesson lesson) throws Exception {
+        lesson.setAccess(Lesson.Access.PUBLIC);
+        withMockInstructor(() -> lessonRepository.save(lesson));
+    }
+
     public Discussion createDiscussion() throws Exception {
         Lesson lesson = createLesson();
         Lesson lessonEntity = (Lesson) withMockInstructor(() -> lessonRepository.save(lesson));
-        addEnrollmentToSession((CourseSession) lessonEntity.getLecture().getSession());
         Discussion entity = new Discussion();
         entity.setComment("comment");
         lessonEntity.addToDiscussions(entity);
