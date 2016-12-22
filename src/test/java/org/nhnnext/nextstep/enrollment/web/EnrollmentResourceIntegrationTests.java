@@ -30,6 +30,21 @@ public class EnrollmentResourceIntegrationTests extends AbstractIntegratedReposi
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.status", equalTo(entity.getStatus().toString())))
-                .andExpect(jsonPath("$.user.username", equalTo(entity.getUser().getUsername())));
+                .andExpect(jsonPath("$.user.username", equalTo(entity.getUser().getUsername())))
+                .andExpect(jsonPath("$.session.name", equalTo(entity.getSession().getName())));
+    }
+
+    @Test
+    public void getUser() throws Exception {
+        Enrollment enrollment = createEnrollment();
+        Enrollment entity = (Enrollment) withMockUser(() -> save(enrollment));
+
+        mvc.perform(get("/api/users/" + entity.getUser().getId() + "/enrollments"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
+                .andExpect(jsonPath("$._embedded.enrollments[0].status", equalTo(entity.getStatus().toString())))
+                .andExpect(jsonPath("$._embedded.enrollments[0].user.username", equalTo(entity.getUser().getUsername())))
+                .andExpect(jsonPath("$._embedded.enrollments[0].session.name", equalTo(entity.getSession().getName())));
     }
 }

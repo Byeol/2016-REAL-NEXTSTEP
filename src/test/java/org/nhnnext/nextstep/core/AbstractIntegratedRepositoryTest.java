@@ -11,6 +11,8 @@ import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.MySessionRepository;
+import org.nhnnext.nextstep.user.User;
+import org.nhnnext.nextstep.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
@@ -32,14 +34,24 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
     private LessonRepository lessonRepository;
 
     public void initRepository() {
-        lessonRepository.deleteAll();
-        lectureRepository.deleteAll();
-        sessionRepository.deleteAll();
-        courseRepository.deleteAll();
+        withMockAdmin(() -> {
+            lessonRepository.deleteAll();
+            lectureRepository.deleteAll();
+            sessionRepository.deleteAll();
+            courseRepository.deleteAll();
+        });
         initUser();
     }
 
-    public static Course createCourse() {
+    public User createUser() {
+        User user = new User("test");
+        user.setName("name");
+        user.setEmail("exmaple@domain.com");
+        user.setAvatarUrl("http://example.com");
+        return user;
+    }
+
+    public Course createCourse() {
         Course course = new Course();
         course.setName("name");
         course.setDescription("description");

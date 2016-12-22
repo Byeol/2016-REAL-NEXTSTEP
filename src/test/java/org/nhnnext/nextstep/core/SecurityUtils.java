@@ -22,6 +22,11 @@ public class SecurityUtils {
         return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 
+    public static Authentication withMockAdmin() {
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+        return new UsernamePasswordAuthenticationToken("admin", "password", authorities);
+    }
+
     private static void setAuthentication(Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

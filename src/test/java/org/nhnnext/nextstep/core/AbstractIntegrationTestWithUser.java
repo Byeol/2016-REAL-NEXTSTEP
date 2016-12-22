@@ -13,28 +13,35 @@ public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegra
     private static final String ALTERNATIVE_USER_USERNAME = "user2";
     private static final String INSTRUCTOR_USERNAME = "instructor";
     private static final String ALTERNATIVE_INSTRUCTOR_USERNAME = "instructor2";
+    private static final String ADMIN_USERNAME = "admin";
 
     @Autowired
     private UserRepository userRepository;
 
     protected void initUser() {
-        userRepository.deleteAll();
+        withMockAdmin(() -> userRepository.deleteAll());
 
-        User user = new User(USER_USERNAME);
-        user.setName("Test user");
-        userRepository.save(user);
+        withAnonymousUser(() -> {
+            User user = new User(USER_USERNAME);
+            user.setName("Test user");
+            userRepository.save(user);
 
-        user = new User(ALTERNATIVE_USER_USERNAME);
-        user.setName("Alternative user");
-        userRepository.save(user);
+            user = new User(ALTERNATIVE_USER_USERNAME);
+            user.setName("Alternative user");
+            userRepository.save(user);
 
-        user = new Instructor(INSTRUCTOR_USERNAME);
-        user.setName("Test instructor");
-        userRepository.save(user);
+            user = new Instructor(INSTRUCTOR_USERNAME);
+            user.setName("Test instructor");
+            userRepository.save(user);
 
-        user = new Instructor(ALTERNATIVE_INSTRUCTOR_USERNAME);
-        user.setName("Alternative instructor");
-        userRepository.save(user);
+            user = new Instructor(ALTERNATIVE_INSTRUCTOR_USERNAME);
+            user.setName("Alternative instructor");
+            userRepository.save(user);
+        });
+    }
+
+    protected User getMockUser() {
+        return loadUser(USER_USERNAME);
     }
 
     private User loadUser(String username) {
@@ -79,5 +86,13 @@ public abstract class AbstractIntegrationTestWithUser extends AbstractWebIntegra
 
     protected void withMockAlternativeInstructor(Runnable runnable) {
         SecurityUtils.runAs(SecurityUtils.withMockUser(loadUser(ALTERNATIVE_INSTRUCTOR_USERNAME)), runnable);
+    }
+
+    protected Object withMockAdmin(Callable callable) throws Exception {
+        return SecurityUtils.runAs(SecurityUtils.withMockAdmin(), callable);
+    }
+
+    protected void withMockAdmin(Runnable runnable) {
+        SecurityUtils.runAs(SecurityUtils.withMockAdmin(), runnable);
     }
 }
