@@ -6,14 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nhnnext.nextstep.core.ObjectConverter;
-import org.nhnnext.nextstep.course.Course;
-import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
 import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.Session;
 import org.nhnnext.nextstep.session.domain.AbstractCourseSessionEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;

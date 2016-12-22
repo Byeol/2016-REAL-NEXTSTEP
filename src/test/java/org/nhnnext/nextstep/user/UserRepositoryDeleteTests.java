@@ -3,12 +3,7 @@ package org.nhnnext.nextstep.user;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
-import org.nhnnext.nextstep.course.Course;
-import org.nhnnext.nextstep.course.CourseRepository;
 import org.springframework.security.access.AccessDeniedException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class UserRepositoryDeleteTests extends AbstractIntegratedRepositoryTest<User, UserRepository> {
 

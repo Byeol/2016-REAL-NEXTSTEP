@@ -2,7 +2,6 @@ package org.nhnnext.nextstep.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingUserEntity;
-import org.nhnnext.nextstep.core.domain.AbstractEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 

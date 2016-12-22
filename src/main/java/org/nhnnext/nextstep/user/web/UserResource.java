@@ -1,6 +1,5 @@
 package org.nhnnext.nextstep.user.web;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.nhnnext.nextstep.user.User;

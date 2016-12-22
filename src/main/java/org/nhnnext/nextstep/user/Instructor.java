@@ -4,13 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.nhnnext.nextstep.course.Course;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(force = true)
 @Data

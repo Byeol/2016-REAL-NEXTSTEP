@@ -4,9 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
-import org.nhnnext.nextstep.lesson.Lesson;
-import org.nhnnext.nextstep.lesson.LessonRepository;
-import org.nhnnext.nextstep.session.CourseSession;
 import org.springframework.security.access.AccessDeniedException;
 
 public class DiscussionRepositoryCreateTests extends AbstractIntegratedRepositoryTest<Discussion, DiscussionRepository> {

@@ -5,7 +5,6 @@ import lombok.*;
 import org.nhnnext.nextstep.enrollment.Enrollment;
 import org.nhnnext.nextstep.enrollment.EnrollmentException;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
-import org.nhnnext.nextstep.user.SecurityUser;
 import org.nhnnext.nextstep.user.User;
 import org.springframework.security.core.Authentication;
 

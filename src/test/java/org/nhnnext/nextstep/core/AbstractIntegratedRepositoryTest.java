@@ -12,7 +12,6 @@ import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.session.MySessionRepository;
 import org.nhnnext.nextstep.user.User;
-import org.nhnnext.nextstep.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 

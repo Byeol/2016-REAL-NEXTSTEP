@@ -1,6 +1,7 @@
 package org.nhnnext.nextstep.config;
 
 import org.nhnnext.nextstep.course.Course;
+import org.nhnnext.nextstep.discussion.Discussion;
 import org.nhnnext.nextstep.lecture.Lecture;
 import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.session.CourseSession;
@@ -17,7 +18,8 @@ public class RepositoryRestConfig extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(Course.class);
         config.exposeIdsFor(CourseSession.class);
         config.exposeIdsFor(MasterSession.class);
-        config.exposeIdsFor(Lesson.class);
         config.exposeIdsFor(Lecture.class);
+        config.exposeIdsFor(Lesson.class);
+        config.exposeIdsFor(Discussion.class);
     }
 }

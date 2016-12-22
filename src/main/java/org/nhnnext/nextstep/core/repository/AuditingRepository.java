@@ -1,6 +1,5 @@
 package org.nhnnext.nextstep.core.repository;
 
-import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.security.access.prepost.PostAuthorize;

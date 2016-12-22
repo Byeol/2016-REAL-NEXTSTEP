@@ -3,8 +3,6 @@ package org.nhnnext.nextstep.user.web;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
-import org.nhnnext.nextstep.course.Course;
-import org.nhnnext.nextstep.course.CourseRepository;
 import org.nhnnext.nextstep.user.User;
 import org.nhnnext.nextstep.user.UserRepository;
 import org.springframework.hateoas.MediaTypes;

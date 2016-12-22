@@ -1,11 +1,9 @@
 package org.nhnnext.nextstep.course.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.nhnnext.nextstep.core.domain.AbstractAuditingEntity;
 import org.nhnnext.nextstep.core.domain.AbstractAuditingUserEntity;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
-import org.nhnnext.nextstep.user.User;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.model.Acl;
@@ -15,7 +13,6 @@ import org.springframework.security.core.Authentication;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import java.util.ArrayList;
 import java.util.List;
 
 @MappedSuperclass

@@ -3,8 +3,6 @@ package org.nhnnext.nextstep.discussion;
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
-import org.nhnnext.nextstep.lesson.Lesson;
-import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.springframework.security.access.AccessDeniedException;
 
 import static org.junit.Assert.assertEquals;

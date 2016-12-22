@@ -1,14 +1,9 @@
 package org.nhnnext.nextstep.session.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.nhnnext.nextstep.core.domain.AbstractAuditingUserEntity;
-import org.nhnnext.nextstep.core.domain.acls.AclImpl;
 import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
 import org.nhnnext.nextstep.user.GrantedAuthorities;
-import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
-import org.springframework.security.acls.model.Acl;
-import org.springframework.security.acls.model.MutableAcl;
 import org.springframework.security.acls.model.Sid;
 import org.springframework.security.core.Authentication;
 
