@@ -27,12 +27,13 @@ public class LessonResourceIntegrationTests extends AbstractIntegratedRepository
         Lesson lesson = createLesson();
         Lesson entity = (Lesson) withMockInstructor(() -> save(lesson));
 
-        mvc.perform(get("/api/lessons/" + entity.getId() + "?projection=excerpt"))
+        withMockUser(() -> mvc.perform(get("/api/lessons/" + entity.getId() + "?projection=excerpt"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.name", equalTo(entity.getName())))
-                .andExpect(jsonPath("$._links.self.href", notNullValue()));
+                .andExpect(jsonPath("$._links.self.href", notNullValue()))
+        );
     }
 
     @Test
@@ -40,11 +41,12 @@ public class LessonResourceIntegrationTests extends AbstractIntegratedRepository
         Lesson lesson = createLesson();
         Lesson entity = (Lesson) withMockInstructor(() -> save(lesson));
 
-        mvc.perform(get("/api/lessons/" + entity.getId() + "/lecture"))
+        withMockUser(() -> mvc.perform(get("/api/lessons/" + entity.getId() + "/lecture"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.lessons[0].name", equalTo(entity.getName())))
-                .andExpect(jsonPath("$.lessons[0]._links.self.href", notNullValue()));
+                .andExpect(jsonPath("$.lessons[0]._links.self.href", notNullValue()))
+        );
     }
 }
