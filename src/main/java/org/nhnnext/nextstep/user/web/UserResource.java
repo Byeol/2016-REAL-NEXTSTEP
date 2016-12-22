@@ -12,6 +12,7 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true)
 public class UserResource extends ResourceSupport {
 
+    private final Long userId;
     private final User user;
     private final Collection<? extends GrantedAuthority> authorities;
 }

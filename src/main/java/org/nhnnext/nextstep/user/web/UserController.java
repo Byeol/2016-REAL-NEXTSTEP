@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAuthenticatedUser(Authentication authentication) {
         User user = service.getAuthenticatedUser().orElseGet(null);
-        UserResource resource = new UserResource(user, authentication.getAuthorities());
+        UserResource resource = new UserResource(user.getId(), user, authentication.getAuthorities());
         resource.add(entityLinks.linkToSingleResource(user));
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
