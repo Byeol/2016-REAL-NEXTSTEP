@@ -1,7 +1,9 @@
 package org.nhnnext.nextstep.enrollment;
 
 import org.nhnnext.nextstep.session.CourseSession;
+import org.nhnnext.nextstep.session.CourseSessionExcerpt;
 import org.nhnnext.nextstep.user.User;
+import org.nhnnext.nextstep.user.UserExcerpt;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(name = "excerpt", types = Enrollment.class)
@@ -9,9 +11,9 @@ public interface EnrollmentExcerpt {
 
     Long getId();
 
-    User getUser();
+    UserExcerpt getUser();
 
-    CourseSession getSession();
+    CourseSessionExcerpt getSession();
 
     Enrollment.Status getStatus();
 }
