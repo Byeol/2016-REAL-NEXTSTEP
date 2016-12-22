@@ -41,6 +41,7 @@ public class Lesson extends AbstractCourseSessionEntity {
         getDiscussions().add(discussion);
         discussion.setLesson(this);
     }
+
     @NotNull
     private Access access = Access.PRIVATE;
 

@@ -3,6 +3,8 @@ package org.nhnnext.nextstep.core;
 import org.nhnnext.nextstep.course.Course;
 import org.nhnnext.nextstep.course.CourseRepository;
 import org.nhnnext.nextstep.discussion.Discussion;
+import org.nhnnext.nextstep.discussion.DiscussionReply;
+import org.nhnnext.nextstep.discussion.DiscussionRepository;
 import org.nhnnext.nextstep.enrollment.Enrollment;
 import org.nhnnext.nextstep.enrollment.EnrollmentRepository;
 import org.nhnnext.nextstep.lecture.Lecture;
@@ -31,6 +33,9 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
 
     @Autowired
     private LessonRepository lessonRepository;
+
+    @Autowired
+    private DiscussionRepository discussionRepository;
 
     public void initRepository() {
         withMockAdmin(() -> {
@@ -109,6 +114,15 @@ public abstract class AbstractIntegratedRepositoryTest<T, R extends CrudReposito
         Discussion entity = new Discussion();
         entity.setComment("comment");
         lessonEntity.addToDiscussions(entity);
+        return entity;
+    }
+
+    public DiscussionReply createDiscussionReply() throws Exception {
+        Discussion discussion = createDiscussion();
+        Discussion discussionReply = (Discussion) withMockInstructor(() -> discussionRepository.save(discussion));
+        DiscussionReply entity = new DiscussionReply();
+        entity.setComment("comment");
+        discussionReply.addToReplies(entity);
         return entity;
     }
 }

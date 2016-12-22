@@ -19,9 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class LectureResourceIntegrationTests extends AbstractIntegratedRepositoryTest<Lecture, LectureRepository> {
 
-    @Autowired
-    protected MockMvc mvc;
-
     @Before
     public void init() {
         initRepository();

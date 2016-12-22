@@ -1,8 +1,10 @@
-package org.nhnnext.nextstep.lesson.web;
+package org.nhnnext.nextstep.discussion.web;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
+import org.nhnnext.nextstep.discussion.Discussion;
+import org.nhnnext.nextstep.discussion.DiscussionRepository;
 import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.lesson.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
-public class LessonResourceIntegrationTests extends AbstractIntegratedRepositoryTest<Lesson, LessonRepository> {
+public class DiscussionResourceIntegrationTests extends AbstractIntegratedRepositoryTest<Discussion, DiscussionRepository> {
 
     @Before
     public void init() {
@@ -26,27 +28,15 @@ public class LessonResourceIntegrationTests extends AbstractIntegratedRepository
 
     @Test
     public void getExcerpt() throws Exception {
-        Lesson lesson = createLesson();
-        Lesson entity = (Lesson) withMockInstructor(() -> save(lesson));
+        Discussion discussion = createDiscussion();
+        Discussion entity = (Discussion) withMockInstructor(() -> save(discussion));
 
-        mvc.perform(get("/api/lessons/" + entity.getId() + "?projection=excerpt"))
+        withMockInstructor(() -> mvc.perform(get("/api/discussions/" + entity.getId() + "?projection=excerpt"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
-                .andExpect(jsonPath("$.name", equalTo(entity.getName())))
-                .andExpect(jsonPath("$._links.self.href", notNullValue()));
-    }
-
-    @Test
-    public void getLecture() throws Exception {
-        Lesson lesson = createLesson();
-        Lesson entity = (Lesson) withMockInstructor(() -> save(lesson));
-
-        mvc.perform(get("/api/lessons/" + entity.getId() + "/lecture"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
-                .andExpect(jsonPath("$.lessons[0].name", equalTo(entity.getName())))
-                .andExpect(jsonPath("$.lessons[0]._links.self.href", notNullValue()));
+                .andExpect(jsonPath("$.comment", equalTo(entity.getComment())))
+                .andExpect(jsonPath("$._links.self.href", notNullValue()))
+        );
     }
 }
