@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.nhnnext.nextstep.core.AbstractIntegratedRepositoryTest;
 import org.nhnnext.nextstep.lesson.Lesson;
 import org.nhnnext.nextstep.lesson.LessonRepository;
+import org.nhnnext.nextstep.user.GrantedAuthorities;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.hateoas.MediaTypes;
 
@@ -14,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@AutoConfigureMockMvc
 public class LessonResourceIntegrationTests extends AbstractIntegratedRepositoryTest<Lesson, LessonRepository> {
 
     @Before

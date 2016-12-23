@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.nhnnext.nextstep.core.domain.acls.AclImpl;
+import org.nhnnext.nextstep.course.Course;
 import org.nhnnext.nextstep.course.domain.AbstractCourseEntity;
 import org.nhnnext.nextstep.session.CourseSession;
 import org.nhnnext.nextstep.user.AuthenticationUtils;
@@ -47,6 +48,11 @@ public class Enrollment extends AbstractCourseEntity {
         PENDING,
         APPROVED,
         REJECTED
+    }
+
+    @Transient
+    public Course getCourse() {
+        return getSession().getCourse();
     }
 
     public boolean isApproved() {
