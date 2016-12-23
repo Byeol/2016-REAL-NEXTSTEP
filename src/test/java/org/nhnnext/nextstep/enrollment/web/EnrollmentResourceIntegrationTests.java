@@ -31,7 +31,7 @@ public class EnrollmentResourceIntegrationTests extends AbstractIntegratedReposi
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$.status", equalTo(entity.getStatus().toString())))
                 .andExpect(jsonPath("$.user.username", equalTo(entity.getUser().getUsername())))
-                .andExpect(jsonPath("$.session.name", equalTo(entity.getSession().getName())));
+                .andExpect(jsonPath("$.course.name", equalTo(entity.getCourse().getName())));
     }
 
     @Test
@@ -45,6 +45,6 @@ public class EnrollmentResourceIntegrationTests extends AbstractIntegratedReposi
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON))
                 .andExpect(jsonPath("$._embedded.enrollments[0].status", equalTo(entity.getStatus().toString())))
                 .andExpect(jsonPath("$._embedded.enrollments[0].user.username", equalTo(entity.getUser().getUsername())))
-                .andExpect(jsonPath("$._embedded.enrollments[0].session.name", equalTo(entity.getSession().getName())));
+                .andExpect(jsonPath("$._embedded.enrollments[0].course.name", equalTo(entity.getCourse().getName())));
     }
 }
